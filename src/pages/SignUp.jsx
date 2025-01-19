@@ -4,10 +4,12 @@ import {
     Checkbox,
     Button,
     Typography,
+    Avatar,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import ContainerX from "../components/shared/ContainerX";
 import { AuthButton } from "../components/shared/AuthButton";
+import { ArchiveBoxArrowDownIcon, PhotoIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function SignUp() {
     return (
@@ -59,13 +61,25 @@ export default function SignUp() {
                             <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Upload Photo
                             </Typography>
-                            <div className="flex items-center space-x-6">
-                                <div class="shrink-0">
-                                    <img class="h-16 w-16 object-cover rounded-full" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80" alt="Current profile photo" />
-                                </div>
-                                <label class="block">
-                                    <span class="sr-only">Choose profile photo</span>
-                                    <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"/>
+
+                            <div className="">
+                                <label htmlFor="cover-photo" className="block">
+                                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                                        <div className="text-center">
+                                            <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
+                                            <div className="mt-4 flex text-sm/6 text-gray-600">
+                                                <label
+                                                    htmlFor="file-upload"
+                                                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                                                >
+                                                    <span className="bg-gray-200 text-gray-900 rounded-full p-2">Upload a file</span>
+                                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                </label>
+                                                <p className="pl-2">or drag and drop</p>
+                                            </div>
+                                            <p className="text-xs/5 pt-2 text-gray-600">PNG, JPG, GIF less than 10MB</p>
+                                        </div>
+                                    </div>
                                 </label>
                             </div>
                         </div>
