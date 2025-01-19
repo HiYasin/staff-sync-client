@@ -32,10 +32,13 @@ const Services = () => {
     return (
         <div>
             <SectionTitle>Services</SectionTitle>
-            <div className='grid md:grid-cols-2 lg:grid-cols-3 justify-between'>
+            <div className='grid md:grid-cols-2 lg:grid-cols-3 justify-between gap-10'>
                 {
-                    services.map(service =>
-                        <div></div>
+                    services.map((service,index) =>
+                        <div key={index} className='grid justify-center text-center border-2 rounded-md p-10 hover:border-gray-800 transition-all duration-500 cursor-pointer'>
+                            <h1 className='text-gray-900 text-2xl font-bold'>{service.title}</h1>
+                            <p className='text-gray-700 '>{service.description}</p>
+                        </div>
                     )
                 }
             </div>
