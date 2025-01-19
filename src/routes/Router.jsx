@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
 import Home from "../layouts/Home";
 import PublicHome from "../pages/PublicHome";
 import ErrorSection7 from "../components/shared/ErrorSection7";

@@ -1,76 +1,104 @@
-import { Button } from '@material-tailwind/react';
-import React from 'react';
-import { AuthButton } from '../components/shared/AuthButton';
-import { Link } from 'react-router-dom';
+import {
+    Card,
+    Input,
+    Checkbox,
+    Button,
+    Typography,
+} from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import ContainerX from "../components/shared/ContainerX";
+import { AuthButton } from "../components/shared/AuthButton";
 
-const SignUp = () => {
+export default function SignUp() {
     return (
-        <div>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Create a new account
-                    </h2>
-                </div>
-
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
-                        <div>
-                            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                                Email address
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    autoComplete="email"
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-900 sm:text-sm/6"
-                                />
-                            </div>
+        <ContainerX>
+            <div className="w-full flex flex-col items-center">
+                <Card color="transparent" shadow={false} className="mx-auto">
+                    <Typography variant="h4" color="blue-gray">
+                        Sign Up
+                    </Typography>
+                    <Typography color="gray" className="mt-1 font-normal">
+                        Nice to meet you! Enter your details to register.
+                    </Typography>
+                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+                        <div className="mb-1 flex flex-col gap-6">
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                Your Name
+                            </Typography>
+                            <Input
+                                size="lg"
+                                placeholder="name@mail.com"
+                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                labelProps={{
+                                    className: "before:content-none after:content-none",
+                                }}
+                            />
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                Your Email
+                            </Typography>
+                            <Input
+                                size="lg"
+                                placeholder="name@mail.com"
+                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                labelProps={{
+                                    className: "before:content-none after:content-none",
+                                }}
+                            />
+                            <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                Password
+                            </Typography>
+                            <Input
+                                type="password"
+                                size="lg"
+                                placeholder="********"
+                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                labelProps={{
+                                    className: "before:content-none after:content-none",
+                                }}
+                            />
                         </div>
-
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                                    Password
-                                </label>
-                            </div>
-                            <div className="mt-2">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    required
-                                    autoComplete="current-password"
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-900 sm:text-sm/6"
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <Button fullWidth>Sign up</Button>
-                        </div>
-                        <div>
-                            <p>Already have an account? <Link to={'/signin'} className='underline'>Sign in</Link></p>
-                        </div>
-                        <div className="relative my-4">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300"></div>
-                            </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="bg-white px-2 text-gray-500">Or</span>
-                            </div>
-                        </div>
-                        <div>
-                            <AuthButton></AuthButton>
-                        </div>
+                        <Checkbox
+                            label={
+                                <Typography
+                                    variant="small"
+                                    color="gray"
+                                    className="flex items-center font-normal"
+                                >
+                                    I agree the
+                                    <a
+                                        href="#"
+                                        className="font-medium transition-colors hover:text-gray-900"
+                                    >
+                                        &nbsp;Terms and Conditions
+                                    </a>
+                                </Typography>
+                            }
+                            containerProps={{ className: "-ml-2.5" }}
+                        />
+                        <Button className="mt-6" fullWidth>
+                            sign up
+                        </Button>
+                        <Typography color="gray" className="mt-4 text-center font-normal">
+                            Already have an account?{" "}
+                            <Link to={'/signin'} className="font-medium text-gray-900 underline">
+                                Sign In
+                            </Link>
+                        </Typography>
                     </form>
-                </div>
-            </div>
-        </div>
-    );
-};
+                    <div className="relative my-4 w-full">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="bg-white px-2 text-gray-500">Or</span>
+                        </div>
+                    </div>
+                    <div className="mb-8">
+                        <AuthButton></AuthButton>
+                    </div>
+                </Card>
 
-export default SignUp;
+            </div>
+        </ContainerX>
+    );
+}

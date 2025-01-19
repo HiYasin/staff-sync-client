@@ -23,9 +23,9 @@ export function Contact() {
                     <div className="grid grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2 items-center">
                         <div className="grid justify-center p-5 gap-5">
                             <div>
-                                <MapPinIcon className="w-32 mx-auto text-center"></MapPinIcon>
+                                <MapPinIcon className="w-28 mx-auto text-center"></MapPinIcon>
                             </div>
-                            <h2 className="text-3xl font-light">ABC Corporation Ltd. <br />
+                            <h2 className="text-2xl font-light">ABC Corporation Ltd. <br />
                                 78, Bay View Tower, Level 12, <br />
                                 Agrabad Commercial Area, Chittagong</h2>
                         </div>
