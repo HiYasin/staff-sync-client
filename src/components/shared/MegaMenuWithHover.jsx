@@ -314,7 +314,7 @@ export function MegaMenuWithHover() {
             variant="h6"
             className="mr-4 cursor-pointer py-1.5 lg:ml-2"
           >
-            Material Tailwind
+            STAFF SYNC
           </Typography>
         </div>
         <div className="hidden lg:block">
