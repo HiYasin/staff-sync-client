@@ -88,7 +88,6 @@ export function LogoSection6() {
           </div>
         </div>
       </div>
-      <Button className="mt-6 mx-auto flex" variant="outlined">see all projects</Button>
     </section>
   );
 }
