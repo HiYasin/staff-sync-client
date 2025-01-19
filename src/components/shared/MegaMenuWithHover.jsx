@@ -21,9 +21,7 @@ import {
 import {
   Bars4Icon,
   GlobeAmericasIcon,
-  NewspaperIcon,
   PhoneIcon,
-  RectangleGroupIcon,
   SquaresPlusIcon,
   SunIcon,
   TagIcon,
@@ -40,49 +38,34 @@ import { Link, NavLink } from "react-router-dom";
 const navListMenuItems = [
   {
     title: "Products",
-    description: "Find the perfect solution for your needs.",
+    // description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
   },
   {
     title: "About Us",
-    description: "Meet and learn about our dedication",
+    // description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
   },
   {
     title: "Blog",
-    description: "Find the perfect solution for your needs.",
+    // description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
   },
   {
     title: "Services",
-    description: "Learn how we can help you achieve your goals.",
+    // description: "Learn how we can help you achieve your goals.",
     icon: SunIcon,
   },
   {
     title: "Support",
-    description: "Reach out to us for assistance or inquiries",
+    // description: "Reach out to us for assistance or inquiries",
     icon: GlobeAmericasIcon,
   },
   {
     title: "Contact",
-    description: "Find the perfect solution for your needs.",
+    // description: "Find the perfect solution for your needs.",
     icon: PhoneIcon,
-  },
-  {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: NewspaperIcon,
-  },
-  {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: RectangleGroupIcon,
-  },
-  {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: TagIcon,
-  },
+  }
 ];
 
 function NavListMenu() {
@@ -91,7 +74,7 @@ function NavListMenu() {
   const renderItems = navListMenuItems.map(
     ({ icon, title, description }, key) => (
       <a href="#" key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
+        <MenuItem className="flex items-center gap-3 rounded-lg p-0">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}
             {React.createElement(icon, {
