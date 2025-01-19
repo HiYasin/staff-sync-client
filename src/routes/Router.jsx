@@ -4,6 +4,7 @@ import Home from "../layouts/Home";
 import PublicHome from "../pages/PublicHome";
 import ErrorSection7 from "../components/shared/ErrorSection7";
 import Contact from "../pages/Contact";
+import SignIn from "../pages/SignIn";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -17,6 +18,10 @@ const Router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact></Contact>
+            },
+            {
+                path: "/signin",
+                element: <SignIn></SignIn>
             },
             {
                 path: "/error",

@@ -33,7 +33,7 @@ import {
   Cog6ToothIcon,
 
 } from "@heroicons/react/24/solid";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const navListMenuItems = [
   {
@@ -266,8 +266,9 @@ function ProfileMenu() {
 }
 
 export function MegaMenuWithHover() {
+  const user = false;
   const [openNav, setOpenNav] = React.useState(false);
-
+  const navigate = useNavigate();
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -304,7 +305,9 @@ export function MegaMenuWithHover() {
           <NavList />
         </div>
         <div>
-          <ProfileMenu />
+          {
+            user?<ProfileMenu />:<Button onClick={()=> navigate('/signin')}>Get Start</Button>
+          }
         </div>
       </div>
       <Collapse open={openNav}>

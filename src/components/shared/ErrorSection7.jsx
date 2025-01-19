@@ -1,8 +1,10 @@
 import React from "react";
 import { Typography, Button } from "@material-tailwind/react";
 import { FlagIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 export function ErrorSection7() {
+  const navigate = useNavigate();
   return (
       <div className="h-screen mx-auto grid place-items-center text-center px-8">
         <div>
@@ -18,7 +20,7 @@ export function ErrorSection7() {
             Don&apos;t worry, our team is already on it.Please try refreshing
             the page or come back later.
           </Typography>
-          <Button color="gray" className="w-full px-4 md:w-[8rem]">
+          <Button color="gray" onClick={()=>{navigate('/')}} className="w-full px-4 md:w-[8rem]">
             Back Home
           </Button>
         </div>
