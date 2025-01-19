@@ -3,6 +3,7 @@ import App from "../App";
 import Home from "../layouts/Home";
 import PublicHome from "../pages/PublicHome";
 import ErrorSection7 from "../components/shared/ErrorSection7";
+import Contact from "../pages/Contact";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -12,6 +13,10 @@ const Router = createBrowserRouter([
             {
                 path: "/",
                 element: <PublicHome></PublicHome>
+            },
+            {
+                path: "/contact",
+                element: <Contact></Contact>
             },
             {
                 path: "/error",

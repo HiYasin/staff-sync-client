@@ -167,8 +167,8 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <NavLink to={'/signin'}>
-          <ListItem className="flex items-center gap-2 py-2 pr-4">Sign In</ListItem>
+        <NavLink to={'/contact'}>
+          <ListItem className="flex items-center gap-2 py-2 pr-4">Contact</ListItem>
         </NavLink>
       </Typography>
     </List>

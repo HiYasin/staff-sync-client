@@ -5,7 +5,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import SectionHeading from '../../components/Shared/SectionHeading';
+import SectionTitle from '../shared/SectionTitle';
 
 const Testimonial = () => {
     const [testimonial, setTestimonial] = useState([]);
@@ -15,8 +15,8 @@ const Testimonial = () => {
             .then(data => setTestimonial(data));
     }, [])
     return (
-        <div className='pb-10'>
-            <SectionHeading title={'TESTIMONIALS'} subtitle={'---What Our Clients Say---'}></SectionHeading>
+        <div className='pb-10 md:px-10'>
+            <SectionTitle>Testimonials</SectionTitle>
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
