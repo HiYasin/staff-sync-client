@@ -1,0 +1,29 @@
+/* .menu li > *:not(ul, .menu-title, details, .btn){
+    @apply rounded-none;
+  }
+  .menu li > *:not(ul, .menu-title, details, .btn):active,
+  .menu li > *:not(ul, .menu-title, details, .btn).active {
+    @apply bg-primary;
+    @apply border-none;
+  } */
+/* 
+nav a >.active{
+    @apply bg-primary;
+} */
+nav a.active {
+    background-color: #737373; /* Change this to your desired color */
+    color: white;
+    border-radius:  0.5rem;
+}
+nav div div a.active{
+    background: none;
+    /* color: black; */
+}
+nav div div a:hover{
+    color: black;
+}
+nav > div:has(> div > a.active) {
+    background-color: #737373; /* Change this to your desired color */
+    color: white;
+    border-radius:  0.5rem;
+}

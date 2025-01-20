@@ -34,7 +34,7 @@ import {
 
 } from "@heroicons/react/24/solid";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import '../shared/MegaMenuWithHover.css'
 const navListMenuItems = [
   {
     title: "Products",
@@ -90,12 +90,12 @@ function NavListMenu() {
             >
               {title}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="paragraph"
               className="text-xs !font-medium text-blue-gray-500"
             >
               {description}
-            </Typography>
+            </Typography> */}
           </div>
         </MenuItem>
       </a>
@@ -149,27 +149,25 @@ function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
-        as="a"
+        as="div"
         href="#"
         variant="small"
         color="blue-gray"
         className="font-medium"
       >
-        <NavLink to={'/'}>
-          <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
-        </NavLink>
+        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/'}>Home</NavLink></ListItem>
       </Typography>
       <NavListMenu />
       <Typography
-        as="a"
+        as="div"
         href="#"
         variant="small"
         color="blue-gray"
         className="font-medium"
       >
-        <NavLink to={'/contact'}>
-          <ListItem className="flex items-center gap-2 py-2 pr-4">Contact</ListItem>
-        </NavLink>
+
+        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/contact'}>Contact</NavLink></ListItem>
+
       </Typography>
     </List>
   );
@@ -188,9 +186,9 @@ const profileMenuItems = [
     link: '/contact',
   },
   {
-    label: "Inbox",
+    label: "Dashboard",
     icon: InboxArrowDownIcon,
-    link: '/signin',
+    link: '/dashboard',
   },
   {
     label: "Help",
@@ -266,7 +264,7 @@ function ProfileMenu() {
 }
 
 export function MegaMenuWithHover() {
-  const user = false;
+  const user = true;
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
   React.useEffect(() => {
@@ -292,7 +290,7 @@ export function MegaMenuWithHover() {
             )}
           </IconButton>
           <Typography
-          onClick={()=>{navigate('/')}}
+            onClick={() => { navigate('/') }}
             variant="h6"
             className="mr-4 cursor-pointer py-1.5 lg:ml-2"
           >
@@ -304,7 +302,7 @@ export function MegaMenuWithHover() {
         </div>
         <div>
           {
-            user?<ProfileMenu />:<Button onClick={()=> navigate('/signin')}>Get Start</Button>
+            user ? <ProfileMenu /> : <Button onClick={() => navigate('/signin')}>Get Start</Button>
           }
         </div>
       </div>

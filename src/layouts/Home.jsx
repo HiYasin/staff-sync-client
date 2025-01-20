@@ -2,6 +2,7 @@ import React from 'react';
 import { MegaMenuWithHover } from '../components/shared/MegaMenuWithHover';
 import { Outlet } from 'react-router-dom';
 import { FooterWithSocialLinks } from '../components/shared/FooterWithSocialLinks';
+import { ScrollRestoration } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <footer className='px-2'>
                 <FooterWithSocialLinks></FooterWithSocialLinks>
             </footer>
+            <ScrollRestoration />
         </>
     );
 };
