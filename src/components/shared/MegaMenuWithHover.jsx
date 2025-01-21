@@ -35,6 +35,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import '../shared/MegaMenuWithHover.css'
+import useAuth from "../../customHooks/useAuth";
+
 const navListMenuItems = [
   {
     title: "Products",
@@ -202,10 +204,19 @@ const profileMenuItems = [
   },
 ];
 
+
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  const { user, logOut } = useAuth();
+  
   const closeMenu = () => setIsMenuOpen(false);
+  const handleSignOut = (label) => {
+    if(label === 'Sign Out'){
+      logOut();
+    }
+    closeMenu();
+  }
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -236,7 +247,7 @@ function ProfileMenu() {
             <Link to={link} key={key}>
               <MenuItem
                 key={label}
-                onClick={closeMenu}
+                onClick={() => handleSignOut(label)}
                 className={`flex items-center gap-2 rounded ${isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                   : ""
@@ -264,9 +275,12 @@ function ProfileMenu() {
 }
 
 export function MegaMenuWithHover() {
-  const user = true;
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
+
+
+  const { user, logOut } = useAuth();
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",

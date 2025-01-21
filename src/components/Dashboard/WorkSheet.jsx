@@ -10,14 +10,14 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import EmployeeTable from "./EmployeeTable";
 
 export default function WrokSheet() {
-    
-  const [date, setDate] = React.useState(new Date());
 
-  const [open, setOpen] = React.useState(false);
+    const [date, setDate] = React.useState(new Date());
+
+    const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen((cur) => !cur);
 
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log({...data, date: date});
+    const onSubmit = (data) => console.log({ ...data, date: date });
 
     return (
         <div className="mt-5">
@@ -38,7 +38,7 @@ export default function WrokSheet() {
                     </div>
                     <Input label="Work Hours" type="number" {...register("workHours", { required: true }, { min: 0, max: 99 })} size="lg" />
                     <DatePicker date={date} setDate={setDate}></DatePicker>
-                    <Button variant="gradient" type="submit" onClick={handleOpen} className="min-w-[200px] flex justify-center items-center gap-2"><PlusCircleIcon className="w-5"></PlusCircleIcon> Add Data</Button>
+                    <Button variant="gradient" type="submit" className="min-w-[200px] flex justify-center items-center gap-2"><PlusCircleIcon className="w-5"></PlusCircleIcon> Add Data</Button>
                 </form>
             </div>
             <div className="my-4">

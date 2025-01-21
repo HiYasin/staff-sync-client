@@ -159,9 +159,9 @@ export default function EmployeeDataTable() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  table.getRowModel().rows.map((row) => {
-    row.getVisibleCells().map(cell => console.log(cell.column.columnDef.cell, cell.getContext()))
-  })
+  // table.getRowModel().rows.map((row) => {
+  //   row.getVisibleCells().map(cell => console.log(cell.column.columnDef.cell, cell.getContext()))
+  // })
   //console.log(table.getRowModel());
   return (
     <Card className="h-full w-full border mt-10">
