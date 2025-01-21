@@ -11,7 +11,7 @@ import {
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
 import '../Dashboard/Dashboard.css'
-export default function EmployeeDashboard() {
+export default function HrDashboard() {
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);

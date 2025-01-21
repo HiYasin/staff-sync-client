@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import DatePicker from "../shared/DatePicker";
 import EmployeeDataTable from "./EmployeeDataTable";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import EmployeeTable from "./EmployeeTable";
 
 export default function WrokSheet() {
     
