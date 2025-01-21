@@ -6,6 +6,8 @@ import Contact from "../pages/Contact";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Dashboard from "../pages/Dashboard";
+import WrokSheet from "../components/Dashboard/WorkSheet";
+import EmployeePaymentTable from "../components/Dashboard/EmployeePaymentTable";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -34,15 +36,15 @@ const Router = createBrowserRouter([
                 children: [
                     {
                         path: "/dashboard",
-                        element: <h1>Work sheet</h1>
+                        element: <WrokSheet></WrokSheet>
                     },
                     {
                         path: "/dashboard/work-sheet",
-                        element: <h1>Work sheet</h1>
+                        element: <WrokSheet></WrokSheet>
                     },
                     {
                         path: "/dashboard/payment-history",
-                        element: <h1>Payment</h1>
+                        element: <EmployeePaymentTable></EmployeePaymentTable>
                     }
                 ]
             },
