@@ -1,0 +1,47 @@
+[
+    {
+        "task": "Development",
+        "workHours": "8",
+        "date": "Date Wed Jan 01 2025 01:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Design",
+        "workHours": "6",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Testing",
+        "workHours": "4",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Meeting",
+        "workHours": "3",
+        "date": "Date Wed Jan 01 2025 05:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Documentation",
+        "workHours": "5",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Code Review",
+        "workHours": "2",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Training",
+        "workHours": "7",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Research",
+        "workHours": "6",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    },
+    {
+        "task": "Support",
+        "workHours": "5",
+        "date": "Date Wed Jan 01 2025 00:00:00 GMT+0600 (Bangladesh Standard Time)"
+    }
+]

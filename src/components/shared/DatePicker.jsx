@@ -5,12 +5,12 @@ import {
   PopoverHandler,
   PopoverContent,
 } from "@material-tailwind/react";
-import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
- 
+
 export default function DatePicker({ date, setDate }) {
- 
+
   return (
     <div className="">
       <Popover placement="bottom">
@@ -18,7 +18,7 @@ export default function DatePicker({ date, setDate }) {
           <Input
             label="Select a Date"
             onChange={() => null}
-            value={date ? format(date, "PPP") : ""}
+            value={date ? format(date, "PPp") : "Select date"}
             size="lg"
           />
         </PopoverHandler>

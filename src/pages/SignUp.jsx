@@ -80,15 +80,6 @@ export default function SignUp() {
                         text: "Something error!",
                     });
                 }
-                // if (res.data.success) {
-
-                // } else {
-                //     Swal.fire({
-                //         icon: "error",
-                //         title: "ImgDB Error",
-                //         text: "Something error!",
-                //     });
-                // }
             })
             .catch((err) => {
                 // console.log(err);

@@ -7,6 +7,7 @@ import {
     getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
+
 import {
     ArrowUpDown,
     ChevronLeft,
@@ -18,20 +19,6 @@ import {
     Search,
     User,
 } from "lucide-react";
-
-import { TrashIcon } from "@heroicons/react/24/outline";
-import { PencilIcon } from "@heroicons/react/24/solid";
-import {
-    Card,
-    Typography,
-    Button,
-    CardBody,
-    Chip,
-    CardFooter,
-    Avatar,
-    IconButton,
-    Tooltip,
-} from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
 

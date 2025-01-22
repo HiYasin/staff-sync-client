@@ -209,16 +209,16 @@ const profileMenuItems = [
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { user, logOut, userInfo } = useAuth();
-  // const [userInfo, setUserInfo] = useState();
+  const { user, logOut } = useAuth();
+  const [userInfo, setUserInfo] = useState();
 
-  // useEffect(()=>{
-  //     axiosSecure.get(`/users?email=${user.email}`)
-  //     .then(res =>{
-  //       setUserInfo(res.data);
-  //       console.log(res.data);
-  //     });
-  // }, [user]);
+  useEffect(()=>{
+      axiosSecure.get(`/users?email=${user.email}`)
+      .then(res =>{
+        setUserInfo(res.data);
+        //console.log(res.data);
+      });
+  }, [user]);
 
   const closeMenu = () => setIsMenuOpen(false);
   //console.log(user.email);

@@ -23,13 +23,13 @@ export function FooterWithSocialLinks() {
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div>
-            <Typography variant="h3" className="mb-6">
+            <Typography variant="h3">
               Staff Sync
             </Typography>
-            <Typography variant="h5" className="mb-6 text-gray-500">
+            <Typography variant="h6" className="mb-3 text-gray-500">
               Empowering businesses with cutting-edge web development, innovative design, and AI-driven technologies to shape a smarter future
             </Typography>
-            <div className="flex relative p-5">
+            <div className="flex lg:pr-4">
               <Input
                 className="rounded-r-none" label="Email" type="email" size="lg" placeholder="example@mail.com"
               />

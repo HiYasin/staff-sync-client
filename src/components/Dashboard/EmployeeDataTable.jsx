@@ -15,7 +15,6 @@ import {
   ChevronsRight,
   Mail,
   Phone,
-  Search,
   User,
 } from "lucide-react";
 
@@ -24,114 +23,71 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   Typography,
-  Button,
   CardBody,
-  Chip,
   CardFooter,
-  Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 const columnHelper = createColumnHelper();
 
 const columns = [
-  columnHelper.accessor("id", {
+  columnHelper.accessor("task", {
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> ID
+        <User className="mr-2" size={16} /> Task
       </span>
     ),
   }),
 
-  columnHelper.accessor("name", {
+  columnHelper.accessor("workHours", {
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> Name
+        <User className="mr-2" size={16} /> Work Hours
       </span>
     ),
   }),
-  columnHelper.accessor("email", {
-    id: "email",
-    cell: (info) => (
-      <span className="italic text-blue-600">{info.getValue()}</span>
-    ),
-    header: () => (
-      <span className="flex items-center">
-        <Mail className="mr-2" size={16} /> Email
-      </span>
-    ),
-  }),
-  columnHelper.accessor("phone", {
-    header: () => (
-      <span className="flex items-center">
-        <Phone className="mr-2" size={16} /> Phone
-      </span>
-    ),
+  columnHelper.accessor("date", {
     cell: (info) => info.getValue(),
+    header: () => (
+      <span className="flex items-center">
+        <User className="mr-2" size={16} /> Time
+      </span>
+    ),
   }),
+  // columnHelper.accessor("email", {
+  //   id: "email",
+  //   cell: (info) => (
+  //     <span className="italic text-blue-600">{info.getValue()}</span>
+  //   ),
+  //   header: () => (
+  //     <span className="flex items-center">
+  //       <Mail className="mr-2" size={16} /> Email
+  //     </span>
+  //   ),
+  // }),
+  // columnHelper.accessor("phone", {
+  //   header: () => (
+  //     <span className="flex items-center">
+  //       <Phone className="mr-2" size={16} /> Phone
+  //     </span>
+  //   ),
+  //   cell: (info) => info.getValue(),
+  // }),
 ];
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
-
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
 
 export default function EmployeeDataTable() {
   const [data, setData] = useState([])
   const [sorting, setSorting] = React.useState([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
   useEffect(() => {
-    fetch('data.json')
+    fetch('work.json')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error:', error));
@@ -158,6 +114,11 @@ export default function EmployeeDataTable() {
     onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  const dateFormatter = (date) => {
+    // return new Date(date).toLocaleDateString();
+    return format(date, "PPp")
+  };
 
   // table.getRowModel().rows.map((row) => {
   //   row.getVisibleCells().map(cell => console.log(cell.column.columnDef.cell, cell.getContext()))
@@ -193,6 +154,7 @@ export default function EmployeeDataTable() {
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                      <ArrowUpDown className="ml-2" size={14} />
                     </Typography>
                   </th>
                 ))}
@@ -202,7 +164,7 @@ export default function EmployeeDataTable() {
                     color="blue-gray"
                     className="font-normal leading-none opacity-100"
                   >
-                   Action
+                    Action
                   </Typography>
                 </th>
               </tr>
@@ -298,12 +260,19 @@ export default function EmployeeDataTable() {
                 {/* {
                   row.getVisibleCells()[0].column.columnDef.cell(row.getVisibleCells()[0].getContext())
                 } */}
-                {row.getVisibleCells().map((cell) => (
+                {row.getVisibleCells().map((cell,index) => (
                   <td
                     key={cell.id}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {/* access dataa 2nd method  row.getVisibleCells().map(cell => console.log(cell.column.columnDef.cell, cell.getContext())) */}
+
+                    {/* index 2 te date gula ase tai index 2 check disi */}
+                    {/* {index===2? dateFormatter(row.getVisibleCells()[index].column.columnDef.cell(row.getVisibleCells()[index].getContext())) : flexRender(cell.column.columnDef.cell, cell.getContext())} */}
+
+                    {/* data access korar 3rd method */}
+                    {index===2? dateFormatter(cell.column.columnDef.cell(cell.getContext())) : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {/* Ekane row.getVisibleCells()[index] = cell */}
                   </td>
                 ))}
                 <td >
