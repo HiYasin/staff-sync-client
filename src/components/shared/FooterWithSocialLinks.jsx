@@ -1,5 +1,5 @@
-import { Typography } from "@material-tailwind/react";
- 
+import { Button, Input, Typography } from "@material-tailwind/react";
+
 const LINKS = [
   {
     title: "Product",
@@ -14,17 +14,29 @@ const LINKS = [
     items: ["Blog", "Newsletter", "Events", "Help center"],
   },
 ];
- 
+
 const currentYear = new Date().getFullYear();
- 
+
 export function FooterWithSocialLinks() {
   return (
     <footer className="relative w-full max-w-screen-xl mx-auto border-t pt-10">
       <div className="mx-auto w-full max-w-7xl px-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-          <Typography variant="h5" className="mb-6">
-            Staff Sync
-          </Typography>
+          <div>
+            <Typography variant="h3" className="mb-6">
+              Staff Sync
+            </Typography>
+            <Typography variant="p" className="mb-6 text-gray-500">
+              Empowering businesses with cutting-edge web development, innovative design, and AI-driven technologies to shape a smarter future
+            </Typography>
+            <div className="flex relative p-5">
+              <Input
+                className="rounded-r-none" label="Email" type="email" size="lg" placeholder="example@mail.com"
+              />
+              <Button className="rounded-l-none">Subscribe</Button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-3 justify-between gap-4">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
