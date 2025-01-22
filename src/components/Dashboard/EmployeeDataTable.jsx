@@ -27,6 +27,7 @@ import {
   CardFooter,
   IconButton,
   Tooltip,
+  Input,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
@@ -102,7 +103,7 @@ export default function EmployeeDataTable() {
     },
     initialState: {
       pagination: {
-        pageSize: 2,
+        pageSize: 5,
       },
     },
     getCoreRowModel: getCoreRowModel(),
@@ -303,7 +304,7 @@ export default function EmployeeDataTable() {
                 table.setPageSize(Number(e.target.value));
               }}
             >
-              {[2, 5, 10, 20, 30].map((pageSize) => (
+              {[5, 10, 15].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   {pageSize}
                 </option>
@@ -329,18 +330,19 @@ export default function EmployeeDataTable() {
             </button>
 
             <span className="flex items-center">
-              <input
+              {/* <input
                 min={1}
                 max={table.getPageCount()}
-                type="number"
+                type="text"
                 value={table.getState().pagination.pageIndex + 1}
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   table.setPageIndex(page);
                 }}
-                className="w-16 p-2 rounded-md border border-gray-300 text-center"
-              />
-              <span className="ml-1">of {table.getPageCount()}</span>
+                className="w-8 p-1.5 rounded-md border border-gray-300 text-center"
+              /> */}
+              <span className="ml-1">{table.getState().pagination.pageIndex + 1}</span>
+              <span className="ml-1"> of {table.getPageCount()}</span>
             </span>
 
             <button
