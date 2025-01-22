@@ -26,59 +26,75 @@ export default function SignUp() {
     const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageKey}`;
 
     const { register, formState: { errors }, handleSubmit } = useForm();
+
     const onSubmit = async (data) => {
-        console.log(data);
+        //console.log(data);
         const imageFile = { image: data.image[0] };
+        let imageUrl = null;
 
         createUser(data.email, data.password)
             .then(async (response) => {
-                //console.log(res);
-                const res = await axios.post(imageHostingApi, imageFile, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
-
-                if (res.data.success) {
-                    const userInfo = {
-                        name: data.name,
-                        email: data.email,
-                        bank_account: data.bank_account,
-                        designation: data.designation,
-                        salary: data.salary,
-                        role: data.role,
-                        image: res.data.data.display_url
-                    }
-                    //console.log(userInfo);
-                    const response = await axiosPublic.post('/users', userInfo);
-                    //console.log(response.data);
-                    if (response.data.insertedId) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Success",
-                            text: "Register & Login Success!",
-                        });
-                        navigate(redirectTo, { replace: true });
+                //console.log("firebase:",response);
+                if (data.image && data.image[0]) {
+                    const res = await axios.post(imageHostingApi, imageFile, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    });
+                    if (res.data.success) {
+                        imageUrl = res.data.data.display_url;
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Error",
+                            title: "ImgDB Error",
                             text: "Something error!",
                         });
                     }
+                }
+
+                //console.log("imgdb:",res.data);
+
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    bank_account: data.bank_account,
+                    designation: data.designation,
+                    salary: data.salary,
+                    role: data.role,
+                    image: imageUrl,
+                }
+                console.log(userInfo);
+                const result = await axiosPublic.post('/users', userInfo);
+                console.log("mongo:", response.data);
+                if (result.data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Register & Login Success!",
+                    });
+                    navigate(redirectTo, { replace: true });
                 } else {
                     Swal.fire({
                         icon: "error",
-                        title: "Error",
+                        title: "Mongo Error",
                         text: "Something error!",
                     });
                 }
+                // if (res.data.success) {
+
+                // } else {
+                //     Swal.fire({
+                //         icon: "error",
+                //         title: "ImgDB Error",
+                //         text: "Something error!",
+                //     });
+                // }
             })
             .catch((err) => {
                 // console.log(err);
                 Swal.fire({
                     icon: "error",
-                    title: "Error",
+                    title: "Firebase Error",
                     text: "Something error!",
                 });
             });
