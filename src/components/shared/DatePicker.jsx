@@ -4,13 +4,14 @@ import {
   Popover,
   PopoverHandler,
   PopoverContent,
+  
 } from "@material-tailwind/react";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function DatePicker({ date, setDate }) {
-
+  //console.log(date);
   return (
     <div className="">
       <Popover placement="bottom">

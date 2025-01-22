@@ -9,28 +9,23 @@ import EmployeeDataTable from "./EmployeeDataTable";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import useAuth from "../../customHooks/useAuth";
 import useAxios from "../../customHooks/useAxios";
-import { format } from "date-fns";
-import useTask from "../../customHooks/useTask";
 
 export default function WrokSheet() {
-
-
 
     const { userInfo } = useAuth();
     const [axiosSecure] = useAxios();
     //console.log(userInfo);
-    const [task, refetch] = useTask();
+
     const [date, setDate] = useState(new Date());
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = async (data) => {
         // console.log({ ...data, date: date });
-        const task = { ...data, date: format(date, "PPp"), email: userInfo.email };
-        console.log(task);
+        const task = { ...data, date: date, email: userInfo.email };
+        //console.log(task);
         const res = await axiosSecure.post("/work-sheet", task);
-        //console.log(res.data);
+        console.log(res.data);
         if (res.data.acknowledged) {
             alert("Data added successfully");
-            refetch();
         } else {
             alert("Something went wrong");
         }
