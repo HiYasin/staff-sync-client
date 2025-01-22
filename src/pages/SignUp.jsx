@@ -1,11 +1,10 @@
 import {
     Card,
     Input,
-    Checkbox,
     Button,
     Typography
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ContainerX from "../components/shared/ContainerX";
 import { AuthButton } from "../components/shared/AuthButton";
 import { PhotoIcon } from "@heroicons/react/24/outline";
@@ -15,6 +14,11 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 
 export default function SignUp() {
+    const location = useLocation();
+    const redirectTo = location.state?.from || '/';
+    const navigate = useNavigate();
+    //console.log(redirectTo);
+
     const [axiosPublic] = useAxios();
     const imageKey = import.meta.env.VITE_imageUploadKey;
     const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageKey}`;
@@ -48,20 +52,21 @@ export default function SignUp() {
             if (response.data.insertedId) {
                 Swal.fire({
                     icon: "success",
-                    title: "Ok",
+                    title: "Success",
                     text: "Register & Login Success!",
                 });
+                navigate(redirectTo, { replace: true });
             } else {
                 Swal.fire({
                     icon: "error",
-                    title: "Ok",
+                    title: "Error",
                     text: "Something error!",
                 });
             }
         } else {
             Swal.fire({
                 icon: "error",
-                title: "Ok",
+                title: "Error",
                 text: "Something error!",
             });
         }
@@ -194,7 +199,7 @@ export default function SignUp() {
                         </div>
                         <Typography color="gray" className="mt-4 text-center font-normal">
                             Already have an account?{" "}
-                            <Link to={'/signin'} className="font-medium text-gray-900 underline">
+                            <Link to={'/signin'} state={{ from: redirectTo }} className="font-medium text-gray-900 underline">
                                 Sign In
                             </Link>
                         </Typography>

@@ -26,14 +26,14 @@ export function AuthButton() {
                 if (response.data.insertedId) {
                     Swal.fire({
                         icon: "Success",
-                        title: "Ok",
-                        text: "Register & Login Success!",
+                        title: "Success",
+                        text: "Register & Login Successfully!",
                     });
                 } else {
                     Swal.fire({
                         icon: "Success",
-                        title: "Ok",
-                        text: "Login Success!",
+                        title: "Success",
+                        text: "Login Successfully!",
                     });
                 }
                 navigate(redirectTo, { replace: true });

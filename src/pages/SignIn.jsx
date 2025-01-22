@@ -1,15 +1,19 @@
 import {
     Card,
     Input,
-    Checkbox,
     Button,
     Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ContainerX from "../components/shared/ContainerX";
 import { AuthButton } from "../components/shared/AuthButton";
 
 export default function SignIn() {
+    const location = useLocation();
+    const redirectTo = location.state?.from || '/';
+    const navigate = useNavigate();
+    //console.log(redirectTo);
+
     return (
         <ContainerX>
             <div className="w-full flex flex-col items-center">
@@ -51,7 +55,7 @@ export default function SignIn() {
                         </Button>
                         <Typography color="gray" className="mt-4 text-center font-normal">
                             Don't have an account?{" "}
-                            <Link to={'/signup'} className="font-medium text-gray-900 underline">
+                            <Link to={'/signup'} state={{ from: redirectTo }} className="font-medium text-gray-900 underline">
                                 Sign Up
                             </Link>
                         </Typography>
