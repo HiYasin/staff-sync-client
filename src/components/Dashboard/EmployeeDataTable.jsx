@@ -43,6 +43,7 @@ import useAuth from "../../customHooks/useAuth";
 import { useForm } from "react-hook-form";
 import DatePicker from "../shared/DatePicker";
 import RawDayPicker from "../shared/RawDayPicker";
+import Swal from "sweetalert2";
 
 const columnHelper = createColumnHelper();
 
@@ -131,7 +132,21 @@ export default function EmployeeDataTable() {
     const task = { ...data, date: format(date, "PPp"), email: userInfo.email };
     console.log(task);
     const res = await axiosSecure.put(`/work-sheet/${id}`, task);
-    console.log(res.data);
+    if (res.data.acknowledged && res.data.modifiedCount > 0) {
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Data updated successfully",
+      });
+      refetch();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Data update failed!",
+      });
+    }
+    //console.log(res.data);
     refetch();
   };
 

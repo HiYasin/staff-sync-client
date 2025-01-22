@@ -11,6 +11,7 @@ import useAuth from "../../customHooks/useAuth";
 import useAxios from "../../customHooks/useAxios";
 import { format } from "date-fns";
 import useTask from "../../customHooks/useTask";
+import Swal from "sweetalert2";
 
 export default function WrokSheet() {
 
@@ -29,10 +30,18 @@ export default function WrokSheet() {
         const res = await axiosSecure.post("/work-sheet", task);
         //console.log(res.data);
         if (res.data.acknowledged) {
-            alert("Data added successfully");
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "Data added successfully",
+            });
             refetch();
         } else {
-            alert("Something went wrong");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Data add failed!",
+            });
         }
     };
 
