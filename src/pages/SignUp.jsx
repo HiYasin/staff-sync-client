@@ -117,8 +117,8 @@ export default function SignUp() {
                                     {...register("password", {
                                         required: "Password is required",
                                         pattern: {
-                                            value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{7,})/,
-                                            message: "Password must be at least 7 characters long, contain a capital letter and a special character"
+                                            value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{6,})/,
+                                            message: "Password must be at least 6 digits long, contain a capital letter and a special character"
                                         }
                                     })}
                                     className="min-w-96"
