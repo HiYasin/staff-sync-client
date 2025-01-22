@@ -26,7 +26,7 @@ export function FooterWithSocialLinks() {
             <Typography variant="h3" className="mb-6">
               Staff Sync
             </Typography>
-            <Typography variant="p" className="mb-6 text-gray-500">
+            <Typography variant="h5" className="mb-6 text-gray-500">
               Empowering businesses with cutting-edge web development, innovative design, and AI-driven technologies to shape a smarter future
             </Typography>
             <div className="flex relative p-5">

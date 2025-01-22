@@ -40,7 +40,7 @@ export function AuthButton() {
             })
             .catch((err) => {
                 Swal.fire({
-                    icon: "Error",
+                    icon: "error",
                     title: "Try Again",
                     text: "Oops...Something went wrong!",
                 });
