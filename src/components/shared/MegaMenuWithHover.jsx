@@ -211,6 +211,7 @@ function ProfileMenu() {
   const { user, logOut } = useAuth();
   
   const closeMenu = () => setIsMenuOpen(false);
+  //console.log(user.email);
   const handleSignOut = (label) => {
     if(label === 'Sign Out'){
       logOut();

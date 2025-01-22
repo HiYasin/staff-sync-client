@@ -12,12 +12,14 @@ import { useForm } from "react-hook-form";
 import useAxios from "../customHooks/useAxios";
 import axios from 'axios';
 import Swal from "sweetalert2";
+import useAuth from "../customHooks/useAuth";
 
 export default function SignUp() {
     const location = useLocation();
     const redirectTo = location.state?.from || '/';
     const navigate = useNavigate();
     //console.log(redirectTo);
+    const { createUser } = useAuth();
 
     const [axiosPublic] = useAxios();
     const imageKey = import.meta.env.VITE_imageUploadKey;
@@ -28,50 +30,58 @@ export default function SignUp() {
         console.log(data);
         const imageFile = { image: data.image[0] };
 
-
-
-        const res = await axios.post(imageHostingApi, imageFile, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-
-        if (res.data.success) {
-            const userInfo = {
-                name: data.name,
-                email: data.email,
-                bank_account: data.bank_account,
-                designation: data.designation,
-                salary: data.salary,
-                role: data.role,
-                image: res.data.data.display_url
-            }
-            //console.log(userInfo);
-            const response = await axiosPublic.post('/users', userInfo);
-            //console.log(response.data);
-            if (response.data.insertedId) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "Register & Login Success!",
+        createUser(data.email, data.password)
+            .then(async (response) => {
+                //console.log(res);
+                const res = await axios.post(imageHostingApi, imageFile, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
                 });
-                navigate(redirectTo, { replace: true });
-            } else {
+
+                if (res.data.success) {
+                    const userInfo = {
+                        name: data.name,
+                        email: data.email,
+                        bank_account: data.bank_account,
+                        designation: data.designation,
+                        salary: data.salary,
+                        role: data.role,
+                        image: res.data.data.display_url
+                    }
+                    //console.log(userInfo);
+                    const response = await axiosPublic.post('/users', userInfo);
+                    //console.log(response.data);
+                    if (response.data.insertedId) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: "Register & Login Success!",
+                        });
+                        navigate(redirectTo, { replace: true });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Something error!",
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Something error!",
+                    });
+                }
+            })
+            .catch((err) => {
+                // console.log(err);
                 Swal.fire({
                     icon: "error",
                     title: "Error",
                     text: "Something error!",
                 });
-            }
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Something error!",
             });
-        }
-
-
     };
     //const onSubmit = (data) => console.log(data);
     return (
