@@ -25,13 +25,13 @@ export function AuthButton() {
                 const response = await axiosPublic.post('/users', userInfo);
                 if (response.data.insertedId) {
                     Swal.fire({
-                        icon: "Success",
+                        icon: "scuccess",
                         title: "Success",
                         text: "Register & Login Successfully!",
                     });
                 } else {
                     Swal.fire({
-                        icon: "Success",
+                        icon: "success",
                         title: "Success",
                         text: "Login Successfully!",
                     });

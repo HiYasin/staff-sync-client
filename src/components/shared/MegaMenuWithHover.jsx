@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Collapse,
@@ -36,7 +36,9 @@ import {
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import '../shared/MegaMenuWithHover.css'
 import useAuth from "../../customHooks/useAuth";
-
+import { UserCircle2Icon } from "lucide-react";
+import useAxios from "../../customHooks/useAxios";
+const [axiosSecure] = useAxios();
 const navListMenuItems = [
   {
     title: "Products",
@@ -209,11 +211,22 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const { user, logOut } = useAuth();
-  
+
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(()=>{
+      axiosSecure.get(`/users?email=${user.email}`)
+      .then(res =>{
+        setUserInfo(res.data);
+        console.log(res.data);
+      });
+  }, [user]);
+
   const closeMenu = () => setIsMenuOpen(false);
   //console.log(user.email);
+  //console.log(userInfo.image);
   const handleSignOut = (label) => {
-    if(label === 'Sign Out'){
+    if (label === 'Sign Out') {
       logOut();
     }
     closeMenu();
@@ -221,19 +234,24 @@ function ProfileMenu() {
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+
       <MenuHandler>
         <Button
           variant="text"
           color="blue-gray"
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
+          {user&&userInfo?
+            <Avatar
+              variant="circular"
+              size="sm"
+              alt={userInfo.name}
+              className="border border-gray-900 p-0.5"
+              src={userInfo.image}
+            />
+            :
+            <UserCircle2Icon className="w-10"></UserCircle2Icon>
+          }
           <ChevronDownIcon
             strokeWidth={2.5}
             className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
