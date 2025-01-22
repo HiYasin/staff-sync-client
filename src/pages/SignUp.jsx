@@ -32,9 +32,6 @@ export default function SignUp() {
             }
         });
 
-        //console.log(res.data);
-        //console.log(res.data.data.display_url);
-
         if (res.data.success) {
             const userInfo = {
                 name: data.name,
@@ -45,9 +42,9 @@ export default function SignUp() {
                 role: data.role,
                 image: res.data.data.display_url
             }
-            console.log(userInfo);
+            //console.log(userInfo);
             const response = await axiosPublic.post('/users', userInfo);
-            console.log(response.data);
+            //console.log(response.data);
             if (response.data.insertedId) {
                 Swal.fire({
                     icon: "success",

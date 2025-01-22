@@ -2,24 +2,37 @@ import { Button } from "@material-tailwind/react";
 import React from 'react';
 import useAuth from "../../customHooks/useAuth";
 import useAxios from "../../customHooks/useAxios";
+import Swal from "sweetalert2";
 
 export function AuthButton() {
     const { googleSignIn } = useAuth();
     const [axiosPublic] = useAxios();
 
-    const handleGoogleSignIn=()=>{
+    const handleGoogleSignIn = () => {
         googleSignIn()
-        .then(res =>{
-            //console.log(res.user);
-            const userInfo = {
-                email: res.user?.email,
-                name: res.user?.displayName
-            }
-            // axiosPublic.post('users', userInfo)
-            // .then(res => {
-            //     console.log(res.data);
-            // });
-        })
+            .then(async (res) => {
+                //console.log(res.user);
+                const userInfo = {
+                    email: res.user?.email,
+                    name: res.user?.displayName,
+                    image: res.user?.photoURL
+                }
+
+                const response = await axiosPublic.post('/users', userInfo);
+                if (response.data.insertedId) {
+                    Swal.fire({
+                        icon: "Success",
+                        title: "Ok",
+                        text: "Register & Login Success!",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "Success",
+                        title: "Ok",
+                        text: "Login Success!",
+                    });
+                }
+            })
     }
     return (
         <div className="flex flex-col items-center gap-4">
