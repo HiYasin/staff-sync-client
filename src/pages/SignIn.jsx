@@ -20,27 +20,28 @@ export default function SignIn() {
     const { signIn } = useAuth();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = async (data) => {
-        console.log(data);
+    const onSubmit = async(data) => {
+        //console.log(data);
         signIn(data.email, data.password)
-        .then(res => {
-            console.log(res.user);
-            Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Login Success!",
+            .then(res => {
+                //console.log(res.user);
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Login Success!",
+                });
+                navigate(redirectTo, { replace: true });
+            })
+            .catch((error) => {
+                //console.log(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Incorrect email or password!",
+                });
             });
-            navigate(redirectTo, { replace: true });
-        })
-        .catch(err => {
-            console.log(err);
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Something error!",
-            });
-        });
-        
+
+
     };
     return (
         <ContainerX>
