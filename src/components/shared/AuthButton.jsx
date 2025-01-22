@@ -3,11 +3,15 @@ import React from 'react';
 import useAuth from "../../customHooks/useAuth";
 import useAxios from "../../customHooks/useAxios";
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function AuthButton() {
     const { googleSignIn } = useAuth();
     const [axiosPublic] = useAxios();
-
+    const location = useLocation();
+    const redirectTo = location?.state?.from || '/';
+    const navigate = useNavigate();
+    //console.log(redirectTo);
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(async (res) => {
@@ -32,7 +36,15 @@ export function AuthButton() {
                         text: "Login Success!",
                     });
                 }
+                navigate(redirectTo, { replace: true });
             })
+            .catch((err) => {
+                Swal.fire({
+                    icon: "Error",
+                    title: "Try Again",
+                    text: "Oops...Something went wrong!",
+                });
+            });
     }
     return (
         <div className="flex flex-col items-center gap-4">

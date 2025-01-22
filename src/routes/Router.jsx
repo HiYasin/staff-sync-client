@@ -8,6 +8,7 @@ import SignUp from "../pages/SignUp";
 import Dashboard from "../pages/Dashboard";
 import WrokSheet from "../components/Dashboard/WorkSheet";
 import EmployeePaymentTable from "../components/Dashboard/EmployeePaymentTable";
+import ProtectedRoute from "./ProtectedRoute";
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -32,19 +33,19 @@ const Router = createBrowserRouter([
             },
             {
                 path: "/dashboard",
-                element: <Dashboard></Dashboard>,
+                element: <ProtectedRoute><Dashboard></Dashboard></ProtectedRoute>,
                 children: [
                     {
                         path: "/dashboard",
-                        element: <WrokSheet></WrokSheet>
+                        element: <ProtectedRoute><WrokSheet></WrokSheet></ProtectedRoute>
                     },
                     {
                         path: "/dashboard/work-sheet",
-                        element: <WrokSheet></WrokSheet>
+                        element: <ProtectedRoute><WrokSheet></WrokSheet></ProtectedRoute>
                     },
                     {
                         path: "/dashboard/payment-history",
-                        element: <EmployeePaymentTable></EmployeePaymentTable>
+                        element: <ProtectedRoute><EmployeePaymentTable></EmployeePaymentTable></ProtectedRoute>
                     }
                 ]
             },
