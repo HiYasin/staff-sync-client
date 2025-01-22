@@ -118,8 +118,11 @@ export default function EmployeeDataTable() {
   const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
-    setData([...task]);
-    console.log(task);
+    // if (task.length > 0) {
+    //   setData(task);
+    // }
+    setData(task);
+    //console.log(task);
   }, [task]);
 
   const { userInfo } = useAuth();
@@ -130,7 +133,7 @@ export default function EmployeeDataTable() {
   const onSubmit = async (data) => {
     // console.log({ ...data, date: date });
     const task = { ...data, date: format(date, "PPp"), email: userInfo.email };
-    console.log(task);
+    //console.log(task);
     const res = await axiosSecure.put(`/work-sheet/${id}`, task);
     if (res.data.acknowledged && res.data.modifiedCount > 0) {
       Swal.fire({
@@ -147,11 +150,9 @@ export default function EmployeeDataTable() {
       });
     }
     //console.log(res.data);
-    refetch();
   };
 
   const handleEdit = async (id) => {
-    // alert(id);
     const filter = task.filter((item) => item._id === id);
     //console.log(filter[0]);
     if (filter.length > 0) {
@@ -162,9 +163,49 @@ export default function EmployeeDataTable() {
       setId(taskData._id);
     }
     handleOpen();
-    //const res = await axiosSecure.get(`/work-sheet/${id}`);
-    //console.log(res.data);
+  }
 
+  const handleDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await axiosSecure.delete(`/work-sheet/${id}`);
+
+          //console.log(res.data);
+          if (res.data.acknowledged && res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+            
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Data delete failed!",
+              icon: "error"
+            });
+          }
+        } catch (error) {
+          //console.error("Error deleting data:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "An error occurred while deleting the data.",
+            icon: "error"
+          });
+        }
+      }
+    });
   }
 
   const table = useReactTable({
@@ -188,11 +229,6 @@ export default function EmployeeDataTable() {
     onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
   });
-
-  const dateFormatter = (date) => {
-    // return new Date(date).toLocaleDateString();
-    return format(date, "PPp")
-  };
 
   return (
     <>
@@ -281,7 +317,7 @@ export default function EmployeeDataTable() {
                       </IconButton>
                     </Tooltip>
                     <Tooltip content="Delete Data">
-                      <IconButton variant="text">
+                      <IconButton variant="text" onClick={() => handleDelete(row.getVisibleCells()[0].column.columnDef.cell(row.getVisibleCells()[0].getContext()))}>
                         <TrashIcon className="h-4 w-4 text-red-500" />
                       </IconButton>
                     </Tooltip>
