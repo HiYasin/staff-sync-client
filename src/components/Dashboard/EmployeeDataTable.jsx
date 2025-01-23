@@ -9,12 +9,16 @@ import {
 } from "@tanstack/react-table";
 import {
   ArrowUpDown,
+  CalendarDays,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Command,
+  ListCheck,
   Mail,
   Phone,
+  Timer,
   User,
 } from "lucide-react";
 
@@ -52,7 +56,8 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> id
+        <User className="mr-2" size={16} />
+        id
       </span>
     ),
   }),
@@ -60,7 +65,8 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> Task
+        <ListCheck className="mr-2" size={16} />
+        Task
       </span>
     ),
   }),
@@ -69,7 +75,8 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> Work Hours
+        <Timer className="mr-2" size={16} />
+        Work Hours
       </span>
     ),
   }),
@@ -77,7 +84,8 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">
-        <User className="mr-2" size={16} /> Time
+        <CalendarDays className="mr-2" size={16} />
+        Time
       </span>
     ),
   }),
@@ -259,8 +267,9 @@ export default function EmployeeDataTable() {
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="font-normal leading-none opacity-100"
+                      className="font-normal leading-none opacity-100 flex"
                     >
+                      <Command className="mr-2" size={16} />
                       Action
                     </Typography>
                   </th>
