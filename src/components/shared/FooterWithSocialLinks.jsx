@@ -26,12 +26,12 @@ export function FooterWithSocialLinks() {
             <Typography variant="h3">
               Staff Sync
             </Typography>
-            <Typography variant="h6" className="mb-3 text-gray-500">
+            <Typography variant="h6" className="mb-3 text-gray-500 font-light">
               Empowering businesses with cutting-edge web development, innovative design, and AI-driven technologies to shape a smarter future
             </Typography>
             <div className="flex lg:pr-4">
-              <Input
-                className="rounded-r-none" label="Email" type="email" size="lg" placeholder="example@mail.com"
+              <input
+                className="rounded-r-none border-2 border-gray-500 appearance-none pl-4 outline-none focus:border-gray-900 rounded-lg" label="Email" type="email" size="lg" placeholder="example@mail.com"
               />
               <Button className="rounded-l-none">Subscribe</Button>
             </div>

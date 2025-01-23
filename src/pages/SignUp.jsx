@@ -106,7 +106,7 @@ export default function SignUp() {
                             <div>
                                 <Input
                                     {...register("name", { required: "Name is required" })}
-                                    className="min-w-96" label="Name" type="text" size="lg" placeholder="Your name"
+                                    className=" " label="Name" type="text" size="lg" placeholder="Your name"
                                 />
                                 <p className="text-red-500">{errors.name?.message}</p>
                             </div>
@@ -114,7 +114,7 @@ export default function SignUp() {
                             <div>
                                 <Input
                                     {...register("email", { required: "Email is required" })}
-                                    className="min-w-96" label="Email" type="email" size="lg" placeholder="example@mail.com"
+                                    className=" " label="Email" type="email" size="lg" placeholder="example@mail.com"
                                 />
                                 <p className="text-red-500">{errors.email?.message}</p>
                             </div>
@@ -128,7 +128,7 @@ export default function SignUp() {
                                             message: "Password must be at least 6 digits long, contain a capital letter and a special character"
                                         }
                                     })}
-                                    className="min-w-96"
+                                    className=" "
                                     label="Password"
                                     type="password"
                                     size="lg"
@@ -150,7 +150,7 @@ export default function SignUp() {
                                             message: "Bank account must be less than 99 characters"
                                         }
                                     })}
-                                    className="min-w-96" label="Bank Account" type="text" size="lg" placeholder="e.g. 123465"
+                                    className=" " label="Bank Account" type="text" size="lg" placeholder="e.g. 123465"
                                 />
                                 <p className="text-red-500">{errors.bank_account?.message}</p>
                             </div>
@@ -159,7 +159,7 @@ export default function SignUp() {
                             <div>
                                 <Input
                                     {...register("designation", { required: "Designation is required" })}
-                                    className="min-w-96" label="Designation" type="text" size="lg" placeholder="e.g. Sales Assistant, Social Media executive"
+                                    className=" " label="Designation" type="text" size="lg" placeholder="e.g. Sales Assistant, Social Media executive"
                                 />
                                 <p className="text-red-500">{errors.designation?.message}</p>
                             </div>
@@ -178,20 +178,24 @@ export default function SignUp() {
                                             message: "Maximum salary is 50000"
                                         }
                                     })}
-                                    className="min-w-96" label="Salary" type="number" size="lg" placeholder="e.g. 25000"
+                                    className=" " label="Salary" type="number" size="lg" placeholder="e.g. 25000"
                                 />
                                 <p className="text-red-500">{errors.salary?.message}</p>
                             </div>
+                            <div>
+                                <select {...register("role", { required: "Role is required" })} defaultValue={''}
+                                    className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
+                                    <option disabled value=''>Select a role</option>
+                                    <option value="HR">HR</option>
+                                    <option value="Employee">Employee</option>
+                                </select>
+                                <p className="text-red-500">{errors.role?.message}</p>
+                            </div>
 
-
-                            <select {...register("role", { required: "Role is required" })} defaultValue={''}
-                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
-                                <option disabled value=''>Select a role</option>
-                                <option value="HR">HR</option>
-                                <option value="Employee">Employee</option>
-                            </select>
-                            <p className="text-red-500">{errors.role?.message}</p>
-                            <div className="md:col-span-2">
+                            <div className="border rounded-md border-blue-gray-200 focus:border-gray-900 text-blue-gray-700 flex items-center overflow-hidden max-w-96">
+                                <input {...register("image")} type="file" className="mx-2 cursor-pointer file:rounded-md file:text-sm file:px-4 file:py-1 file:border-0 file:outline-1" />
+                            </div>
+                            {/* <div className="md:col-span-2">
                                 <label htmlFor="cover-photo" className="block">
                                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                         <div className="text-center">
@@ -209,7 +213,8 @@ export default function SignUp() {
                                         </div>
                                     </div>
                                 </label>
-                            </div>
+                            </div> */}
+
                         </div>
                         <div className="max-w-sm mx-auto col-span-2">
                             <Button className="mt-4" variant="gradient" type="submit" fullWidth>Sign Up</Button>

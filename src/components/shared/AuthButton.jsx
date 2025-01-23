@@ -17,9 +17,13 @@ export function AuthButton() {
             .then(async (res) => {
                 //console.log(res.user);
                 const userInfo = {
-                    email: res.user?.email,
                     name: res.user?.displayName,
-                    image: res.user?.photoURL
+                    email: res.user?.email,
+                    bank_account: 123456,
+                    designation: 'Engineer',
+                    salary: 15000,
+                    role: 'Employee',
+                    image: res.user?.photoURL,
                 }
 
                 const response = await axiosPublic.post('/users', userInfo);
