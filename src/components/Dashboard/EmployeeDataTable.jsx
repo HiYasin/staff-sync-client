@@ -107,10 +107,10 @@ export default function EmployeeDataTable() {
   const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
-    if (task.length !== data.length) {
+    // if (task.length !== data.length) {
       const sortedTask = [...task].sort((a, b) => (a._id < b._id ? 1 : -1));
       setData(sortedTask);
-    }
+    // }
     //console.log(task);
   }, [task]);
 
