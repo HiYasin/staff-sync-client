@@ -81,25 +81,6 @@ const columns = [
       </span>
     ),
   }),
-  // columnHelper.accessor("email", {
-  //   id: "email",
-  //   cell: (info) => (
-  //     <span className="italic text-blue-600">{info.getValue()}</span>
-  //   ),
-  //   header: () => (
-  //     <span className="flex items-center">
-  //       <Mail className="mr-2" size={16} /> Email
-  //     </span>
-  //   ),
-  // }),
-  // columnHelper.accessor("phone", {
-  //   header: () => (
-  //     <span className="flex items-center">
-  //       <Phone className="mr-2" size={16} /> Phone
-  //     </span>
-  //   ),
-  //   cell: (info) => info.getValue(),
-  // }),
 ];
 
 
@@ -118,10 +99,10 @@ export default function EmployeeDataTable() {
   const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
-    // if (task.length > 0) {
-    //   setData(task);
-    // }
-    setData(task);
+    if (task.length !== data.length) {
+      const sortedTask = [...task].sort((a, b) => (a._id < b._id ? 1 : -1));
+      setData(sortedTask);
+    }
     //console.log(task);
   }, [task]);
 
@@ -141,6 +122,7 @@ export default function EmployeeDataTable() {
         title: "Success",
         text: "Data updated successfully",
       });
+      handleOpen();
       refetch();
     } else {
       Swal.fire({
@@ -188,7 +170,7 @@ export default function EmployeeDataTable() {
               text: "Your file has been deleted.",
               icon: "success"
             });
-            
+
           } else {
             Swal.fire({
               title: "Error!",
@@ -236,7 +218,7 @@ export default function EmployeeDataTable() {
         <div className="h-10">
           <h1 className="text-center w-full pt-5 text-xl font-bold">Work Sheet</h1>
         </div>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="overflow-x-scroll px-0">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -307,7 +289,8 @@ export default function EmployeeDataTable() {
                         {/* {index === 2 ? dateFormatter(cell.column.columnDef.cell(cell.getContext())) : flexRender(cell.column.columnDef.cell, cell.getContext())} */}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         {/* Ekane row.getVisibleCells()[index] = cell */}
-                      </td> : <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i}</td>
+                      </td>
+                       : <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i+1}</td>
                   ))}
                   {/* Action */}
                   <td >
@@ -426,7 +409,7 @@ export default function EmployeeDataTable() {
             <RawDayPicker date={date} setDate={setDate}></RawDayPicker>
             <div className="grid gap-5 md:grid-cols-2">
               <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
-              <Button variant="gradient" type="submit" onClick={handleOpen} className="min-w-[200px]">Update Data</Button>
+              <Button variant="gradient" type="submit" className="min-w-[200px]">Update Data</Button>
 
             </div>
           </form>
