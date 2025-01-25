@@ -9,8 +9,6 @@ import {
 } from "@tanstack/react-table";
 import {
     ArrowUpDown,
-    CalendarDays,
-    CheckCheckIcon,
     CheckCircle,
     ChevronLeft,
     ChevronRight,
@@ -21,9 +19,7 @@ import {
     Command,
     DollarSign,
     LandmarkIcon,
-    ListCheck,
     MailCheckIcon,
-    Timer,
     User,
     UserCheck,
 } from "lucide-react";
@@ -34,7 +30,6 @@ import {
     CardFooter,
     IconButton,
     Tooltip,
-    Input,
     Button,
     Dialog,
     DialogHeader,
@@ -42,7 +37,7 @@ import {
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import useAxios from "../../customHooks/useAxios";
 import useAuth from "../../customHooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -125,42 +120,44 @@ export default function EmployeeList() {
 
     useEffect(() => {
         setData(employees);
-        console.log(employees);
+        //console.log(employees);
     }, [employees]);
 
     const { userInfo } = useAuth();
-    const [date, setDate] = useState(new Date());
+    //console.log(userInfo);
     const { register, formState: { errors }, handleSubmit, setValue } = useForm();
 
-    const [id, setId] = useState(null);
     const onSubmit = async (data) => {
-        // console.log({ ...data, date: date });
-        const task = { ...data, date: format(date, "PPp"), email: userInfo.email };
-        //console.log(task);
-        const res = await axiosSecure.put(`/work-sheet/${id}`, task);
-        if (res.data.acknowledged && res.data.modifiedCount > 0) {
+        const payEmployee = { ...data };
+        //console.log(payEmployee);
+        const res = await axiosSecure.post(`/pay`, payEmployee);
+        //console.log(res.data);
+        if (res.data.acknowledged && res.data.insertedId) {
             Swal.fire({
                 icon: "success",
                 title: "Success",
-                text: "Data updated successfully",
+                text: "Payment request send successfully",
             });
-            handleOpen();
-            refetch();
         } else {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Data update failed!",
+                text: res.data.message,
             });
         }
         //console.log(res.data);
     };
-
+    const handlePay = (email, salary) => {
+        console.log(email, salary);
+        setValue('salary', salary);
+        setValue('email', email);
+        handleOpen();
+    }
     const handleVerify = async (id) => {
         try {
             const res = await axiosSecure.patch(`/users/verify/${id}`);
             console.log(res.data);
-            if (res.data.modifiedCount>0 && res.data.acknowledged) {
+            if (res.data.modifiedCount > 0 && res.data.acknowledged) {
                 Swal.fire({
                     icon: "success",
                     title: "Success",
@@ -183,48 +180,11 @@ export default function EmployeeList() {
         }
     };
 
-    const handleDelete = (id) => {
-        console.log(id);
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const res = await axiosSecure.delete(`/work-sheet/${id}`);
 
-                    //console.log(res.data);
-                    if (res.data.acknowledged && res.data.deletedCount > 0) {
-                        refetch();
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-
-                    } else {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Data delete failed!",
-                            icon: "error"
-                        });
-                    }
-                } catch (error) {
-                    //console.error("Error deleting data:", error);
-                    Swal.fire({
-                        title: "Error!",
-                        text: "An error occurred while deleting the data.",
-                        icon: "error"
-                    });
-                }
-            }
-        });
-    }
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const years = Array.from({ length: 10 }, (_, i) => i + 2020);
+    const [month, setMonth] = useState();
+    const [year, setYear] = useState();
 
     const table = useReactTable({
         data,
@@ -322,7 +282,7 @@ export default function EmployeeList() {
                                                             :
                                                             <Tooltip content="Not Verified">
                                                                 <IconButton variant="text" onClick={() => handleVerify(row.original._id)}>
-                                                                    <CircleXIcon className="h-4 w-4 text-red-500" />
+                                                                    <CircleXIcon className="text-red-500" />
                                                                 </IconButton>
                                                             </Tooltip>
                                                     )
@@ -335,7 +295,13 @@ export default function EmployeeList() {
                                         )
                                     ))}
                                     <td className="space-x-1">
-                                        <Button variant="filled" size="sm">Pay</Button>
+                                        <Button
+                                            variant="filled"
+                                            size="sm"
+                                            onClick={() => { handlePay(row.original.email, row.original.salary)}}
+                                            disabled={!row.original.verified}
+                                        >Pay</Button>
+
                                         <Button variant="outlined" size="sm" >Details</Button>
                                     </td>
                                 </tr>
@@ -403,47 +369,45 @@ export default function EmployeeList() {
                     </div>
                 </CardFooter>
             </Card>
-            <Dialog open={open} handler={handleOpen}>
-                <DialogHeader>Its a simple modal.</DialogHeader>
+            <Dialog open={open} handler={handleOpen} size="xs">
+                <DialogHeader className="text-center">Create Payment Request</DialogHeader>
                 <DialogBody>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
-                        <div className="min-w-52 relative">
-                            <select {...register("task", { required: "Email is required" })} defaultValue={''}
-                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
-                                <option disabled value=''>Select a task</option>
-                                <option value="Sales">Sales</option>
-                                <option value="Support">Support</option>
-                                <option value="Content">Content</option>
-                                <option value="Paper-work">Paper-work</option>
-                            </select>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                            </svg>
-                            <p className="text-red-500">{errors.task?.message}</p>
-                        </div>
-
+                        <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{userInfo.salary}$</span></div>
                         <div>
-                            <Input label="Work Hours" type="number" {...register("workHours", {
-                                required: "Work hours is required",
-                                min: {
-                                    value: 1,
-                                    message: "Minimum hours is 1"
-                                },
-                                max: {
-                                    value: 50,
-                                    message: "Maximum hours is 50"
-                                },
-                            })} size="lg" />
-                            <p className="text-red-500">{errors.workHours?.message}</p>
+                            <select {...register("month", { required: "Month is required" })} defaultValue={''}
+                                value={month}
+                                onChange={e => setMonth(e.target.value)}
+                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2"
+                            >
+                                <option value="">Select Month</option>
+                                {months.map((month) => (
+                                    <option key={month} value={month}>
+                                        {month}
+                                    </option>
+                                ))}
+                            </select>
+                            <p className="text-red-500">{errors.month?.message}</p>
                         </div>
-                        <div className="relative">
-                            {/* <DatePicker date={date} setDate={setDate}></DatePicker> */}
-                        </div>
-                        <RawDayPicker date={date} setDate={setDate}></RawDayPicker>
-                        <div className="grid gap-5 md:grid-cols-2">
-                            <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
-                            <Button variant="gradient" type="submit" className="min-w-[200px]">Update Data</Button>
+                        <div>
+                            <select {...register("year", { required: "Year is required" })} defaultValue={''}
+                                value={year}
+                                onChange={e => setYear(e.target.value)}
+                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2"
+                            >
+                                <option value="">Select Year</option>
+                                {years.map((year) => (
+                                    <option key={year} value={year}>
+                                        {year}
+                                    </option>
+                                ))}
+                            </select>
 
+                            <p className="text-red-500">{errors.year?.message}</p>
+                        </div>
+                        <div className="grid gap-5">
+                            <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
+                            <Button variant="gradient" type="submit" className="min-w-[200px]" onClick={handleOpen}>Confirm</Button>
                         </div>
                     </form>
                 </DialogBody>
