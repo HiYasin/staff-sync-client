@@ -9,6 +9,12 @@ import Dashboard from "../pages/Dashboard";
 import WrokSheet from "../components/Dashboard/WorkSheet";
 import EmployeePaymentTable from "../components/Dashboard/EmployeePaymentTable";
 import ProtectedRoute from "./ProtectedRoute";
+import EmployeeRoute from "./EmployeeRoute";
+import HrRoute from "./HrRoute";
+import AdminRoute from "./AdminRoute";
+import EmployeeList from "../components/Dashboard/EmployeeList";
+import Progress from "../components/Dashboard/Progress";
+
 const Router = createBrowserRouter([
     {
         path: "/",
@@ -36,16 +42,23 @@ const Router = createBrowserRouter([
                 element: <ProtectedRoute><Dashboard></Dashboard></ProtectedRoute>,
                 children: [
                     {
-                        path: "/dashboard",
-                        element: <ProtectedRoute><WrokSheet></WrokSheet></ProtectedRoute>
+                        path: "/dashboard"
                     },
                     {
                         path: "/dashboard/work-sheet",
-                        element: <ProtectedRoute><WrokSheet></WrokSheet></ProtectedRoute>
+                        element: <ProtectedRoute><EmployeeRoute><WrokSheet></WrokSheet></EmployeeRoute></ProtectedRoute>
                     },
                     {
                         path: "/dashboard/payment-history",
-                        element: <ProtectedRoute><EmployeePaymentTable></EmployeePaymentTable></ProtectedRoute>
+                        element: <ProtectedRoute><EmployeeRoute><EmployeePaymentTable></EmployeePaymentTable></EmployeeRoute></ProtectedRoute>
+                    },
+                    {
+                        path: "/dashboard/employee-list",
+                        element: <ProtectedRoute><HrRoute><EmployeeList></EmployeeList></HrRoute></ProtectedRoute>
+                    },
+                    {
+                        path: "/dashboard/progress",
+                        element: <ProtectedRoute><HrRoute><Progress></Progress></HrRoute></ProtectedRoute>
                     }
                 ]
             },

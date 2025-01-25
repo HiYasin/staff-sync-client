@@ -22,8 +22,9 @@ export function AuthButton() {
                     bank_account: 123456,
                     designation: 'Engineer',
                     salary: 15000,
-                    role: 'Employee',
+                    role: 'employee',
                     image: res.user?.photoURL,
+                    verified: false,
                 }
 
                 const response = await axiosPublic.post('/users', userInfo);

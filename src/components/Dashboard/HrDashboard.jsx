@@ -43,7 +43,7 @@ export default function HrDashboard() {
           </IconButton>
         </div>
         <List>
-          <NavLink to={'/dashboard/work-sheet'} onClick={closeDrawer}>
+          <NavLink to={'/dashboard/employee-list'} onClick={closeDrawer}>
             <ListItem>
               <ListItemPrefix>
                 <svg
@@ -59,11 +59,11 @@ export default function HrDashboard() {
                   />
                 </svg>
               </ListItemPrefix>
-              Work Sheet
+              Employee List
             </ListItem>
           </NavLink>
 
-          <NavLink to={'/dashboard/payment-history'} onClick={closeDrawer}>
+          <NavLink to={'/dashboard/progress'} onClick={closeDrawer}>
             <ListItem>
               <ListItemPrefix>
                 <svg
@@ -79,7 +79,7 @@ export default function HrDashboard() {
                   />
                 </svg>
               </ListItemPrefix>
-              Payment History
+              Pogress
             </ListItem>
           </NavLink>
         </List>

@@ -62,6 +62,7 @@ export default function SignUp() {
                     salary: data.salary,
                     role: data.role,
                     image: imageUrl,
+                    verified: false,
                 }
                 console.log(userInfo);
                 const result = await axiosPublic.post('/users', userInfo);
@@ -167,7 +168,7 @@ export default function SignUp() {
 
                             <div>
                                 <Input
-                                    {...register("salary", {
+                                    {...register("salary", { 
                                         required: "Salary is required",
                                         min: {
                                             value: 10000,
@@ -186,8 +187,8 @@ export default function SignUp() {
                                 <select {...register("role", { required: "Role is required" })} defaultValue={''}
                                     className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
                                     <option disabled value=''>Select a role</option>
-                                    <option value="HR">HR</option>
-                                    <option value="Employee">Employee</option>
+                                    <option value="hr">HR</option>
+                                    <option value="employee">Employee</option>
                                 </select>
                                 <p className="text-red-500">{errors.role?.message}</p>
                             </div>

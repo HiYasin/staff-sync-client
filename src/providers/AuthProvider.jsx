@@ -8,8 +8,8 @@ export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [axiosSecure] = useAxios();
-    const [user, setUser] = useState(null);
-    const [userInfo, setUserInfo] = useState(null);
+    const [user, setUser] = useState({});
+    const [userInfo, setUserInfo] = useState({});
     const [userLoading, setUserLoading] = useState(true);
 
     const createUser = (email, password) => {

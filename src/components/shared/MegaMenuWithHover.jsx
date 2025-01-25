@@ -38,6 +38,7 @@ import '../shared/MegaMenuWithHover.css'
 import useAuth from "../../customHooks/useAuth";
 import { UserCircle2Icon } from "lucide-react";
 import useAxios from "../../customHooks/useAxios";
+import useProfileMenu from "../../customHooks/useProfileMenu";
 const [axiosSecure] = useAxios();
 const navListMenuItems = [
   {
@@ -177,41 +178,12 @@ function NavList() {
   );
 }
 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-    link: '/',
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-    link: '/contact',
-  },
-  {
-    label: "Dashboard",
-    icon: InboxArrowDownIcon,
-    link: '/dashboard',
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-    link: '/signin',
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-    link: '/signin',
-  },
-];
-
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user, logOut } = useAuth();
   const [userInfo, setUserInfo] = useState();
-
+  const profileMenuItems = useProfileMenu();
   useEffect(()=>{
       axiosSecure.get(`/users?email=${user.email}`)
       .then(res =>{
