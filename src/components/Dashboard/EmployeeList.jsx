@@ -151,6 +151,7 @@ export default function EmployeeList() {
         console.log(email, salary);
         setValue('salary', salary);
         setValue('email', email);
+        setValue('status', 'unpaid');
         handleOpen();
     }
     const handleVerify = async (id) => {
