@@ -10,9 +10,6 @@ const EmployeeRoute = ({children}) => {
     else if(userInfo.role === 'employee'){
         return children;
     }
-    else{
-        return <Navigate to={'/'} />
-    }
 };
 
 export default EmployeeRoute;

@@ -44,6 +44,7 @@ export function AuthButton() {
                 navigate(redirectTo, { replace: true });
             })
             .catch((err) => {
+                console.log(err);
                 Swal.fire({
                     icon: "error",
                     title: "Try Again",

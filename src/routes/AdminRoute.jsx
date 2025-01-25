@@ -10,9 +10,6 @@ const AdminRoute = ({children}) => {
     else if(userInfo.role === 'admin'){
         return children;
     }
-    else{
-        return <Navigate to={'/'} />
-    }
 };
 
 export default AdminRoute;

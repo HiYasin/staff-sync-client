@@ -19,7 +19,7 @@ const EmployeeDetails = () => {
             else {
                 console.log("Unauthorized");
             }
-            console.log(res.data);
+            //console.log(res.data);
         }
         getData();
 
