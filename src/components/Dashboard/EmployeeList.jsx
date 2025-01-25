@@ -44,6 +44,7 @@ import { useForm } from "react-hook-form";
 import RawDayPicker from "../shared/RawDayPicker";
 import Swal from "sweetalert2";
 import useEmployee from "../../customHooks/useEmployee";
+import { Link } from "react-router-dom";
 
 const columnHelper = createColumnHelper();
 
@@ -295,7 +296,7 @@ export default function EmployeeList() {
                                             <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i + 1}</td>
                                         )
                                     ))}
-                                    <td className="space-x-1">
+                                    <td className="space-x-2">
                                         <Button
                                             variant="filled"
                                             size="sm"
@@ -303,7 +304,7 @@ export default function EmployeeList() {
                                             disabled={!row.original.verified}
                                         >Pay</Button>
 
-                                        <Button variant="outlined" size="sm" >Details</Button>
+                                        <Link className="cursor-pointerm border-2 border-gray-900 px-3 py-2 text-xs rounded-md" to={`/employee/${row.original._id}`}>Details</Link>
                                     </td>
                                 </tr>
                             ))}

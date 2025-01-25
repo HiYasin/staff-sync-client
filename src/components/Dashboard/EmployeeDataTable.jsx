@@ -296,6 +296,8 @@ export default function EmployeeDataTable() {
 
                         {/* data access korar 3rd method */}
                         {/* {index === 2 ? dateFormatter(cell.column.columnDef.cell(cell.getContext())) : flexRender(cell.column.columnDef.cell, cell.getContext())} */}
+                        {/* data access korar 4th method */}
+                        {/* row.original diye pura object ta access kora jabe*/}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         {/* Ekane row.getVisibleCells()[index] = cell */}
                       </td>

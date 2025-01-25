@@ -14,13 +14,14 @@ import HrRoute from "./HrRoute";
 import AdminRoute from "./AdminRoute";
 import EmployeeList from "../components/Dashboard/EmployeeList";
 import Progress from "../components/Dashboard/Progress";
+import EmployeeDetails from "../pages/EmployeeDetails";
 
 const Router = createBrowserRouter([
     {
         path: "/",
         element: <Home></Home>,
-        errorElement:<ErrorSection7></ErrorSection7>,
-        children:[
+        errorElement: <ErrorSection7></ErrorSection7>,
+        children: [
             {
                 path: "/",
                 element: <PublicHome></PublicHome>
@@ -61,6 +62,11 @@ const Router = createBrowserRouter([
                         element: <ProtectedRoute><HrRoute><Progress></Progress></HrRoute></ProtectedRoute>
                     }
                 ]
+            },
+
+            {
+                path: "/employee/:id",
+                element: <ProtectedRoute><HrRoute><EmployeeDetails></EmployeeDetails></HrRoute></ProtectedRoute>
             },
             {
                 path: "/error",
