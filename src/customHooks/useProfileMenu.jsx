@@ -17,7 +17,7 @@ const useProfileMenu = () => {
     } else if(userInfo.role === 'hr') {
         dashboard='/dashboard/employee-list';
     } else{
-        dashboard = '/dashboard/work-sheet';
+        dashboard = '/dashboard/all-employee';
     }
 
     const profileMenuItems = [

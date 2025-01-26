@@ -4,6 +4,7 @@ import ContainerX from "../components/shared/ContainerX";
 import useAuth from "../customHooks/useAuth";
 import Spinner from "../components/shared/Spinner";
 import { Navigate } from "react-router-dom";
+import AdminDashboard from "../components/Dashboard/AdminDashboard";
 
 const Dashboard = () => {
     const { userInfo, logOut } = useAuth();
@@ -14,6 +15,7 @@ const Dashboard = () => {
                 <ContainerX>
                     { userInfo.role==="employee" && <EmployeeDashboard></EmployeeDashboard> }
                     { userInfo.role==="hr" && <HrDashboard></HrDashboard> }
+                    { userInfo.role==="admin" && <AdminDashboard></AdminDashboard> }
                 </ContainerX>
             </div>
         );

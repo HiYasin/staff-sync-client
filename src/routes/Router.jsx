@@ -15,6 +15,8 @@ import AdminRoute from "./AdminRoute";
 import EmployeeList from "../components/Dashboard/EmployeeList";
 import Progress from "../components/Dashboard/Progress";
 import EmployeeDetails from "../pages/EmployeeDetails";
+import PaymentRequest from "../components/Dashboard/PaymentRequest";
+import AllEmployee from "../components/Dashboard/AllEmployee";
 
 const Router = createBrowserRouter([
     {
@@ -60,6 +62,14 @@ const Router = createBrowserRouter([
                     {
                         path: "/dashboard/progress",
                         element: <ProtectedRoute><HrRoute><Progress></Progress></HrRoute></ProtectedRoute>
+                    },
+                    {
+                        path: "/dashboard/payment-request",
+                        element: <ProtectedRoute><AdminRoute><PaymentRequest></PaymentRequest></AdminRoute></ProtectedRoute>
+                    },
+                    {
+                        path: "/dashboard/all-employee",
+                        element: <ProtectedRoute><AdminRoute><AllEmployee></AllEmployee></AdminRoute></ProtectedRoute>
                     }
                 ]
             },
