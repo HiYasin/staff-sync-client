@@ -36,6 +36,8 @@ import {
     DialogHeader,
     DialogBody,
     Input,
+    ButtonGroup,
+    Avatar,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
@@ -158,7 +160,7 @@ export default function AllEmployee() {
     }
 
 
-    const [ currentSalary, setCurrentSalary ] = useState(0);
+    const [currentSalary, setCurrentSalary] = useState(0);
     const onSubmit = async (data) => {
         console.log(data, currentSalary);
         try {
@@ -258,13 +260,21 @@ export default function AllEmployee() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
+    const [view, setView] = useState(true);
+
     return (
         <>
             <Card className="h-full w-full border mt-10">
-                <div className="h-10">
-                    <h1 className="text-center w-full pt-5 text-xl font-bold">Work Sheet</h1>
+                <div className="h-fit">
+                    <h1 className="text-center w-full py-5 text-xl font-bold">Work Sheet</h1>
+                    <div className="w-fit mx-auto">
+                        <ButtonGroup variant="outlined">
+                            <Button className={`${view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Table View</Button>
+                            <Button className={`${!view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Card View</Button>
+                        </ButtonGroup>
+                    </div>
                 </div>
-                <CardBody className="overflow-x-scroll px-0">
+                <CardBody className={`overflow-x-scroll px-0 ${!view && 'hidden'}`}>
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>
                             {table.getHeaderGroups().map((headerGroup) => (
@@ -357,6 +367,50 @@ export default function AllEmployee() {
                             ))}
                         </tbody>
                     </table>
+                </CardBody>
+                <CardBody className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 ${view && 'hidden'}`}>
+                    {data.map((row, i) => (
+                        row.verified && (
+                            <div key={row._id} className="border p-4 rounded-lg shadow-sm hover:shadow-md grid justify-center">
+                                <Avatar
+                                    variant="circular"
+                                    size="xxl"
+                                    alt={row.name}
+                                    className="border border-gray-900 p-0.5 mx-auto my-5"
+                                    src={row.image}
+                                />
+                                <Typography variant="paragraph" className="mb-2">
+                                    Name: {row.name}
+                                </Typography>
+                                <Typography variant="paragraph" className="mb-2">
+                                    Role: {row.role.toUpperCase()}
+                                </Typography>
+                                <Typography variant="paragraph" className="mb-2">
+                                    Designation: {row.designation}
+                                </Typography>
+                                <Typography variant="paragraph" className="mb-2">
+                                    Email: {row.email}
+                                </Typography>
+                                <div className="space-x-2">
+                                    {row.status === 'running' ? (
+                                        <>
+                                            <Button variant="filled" disabled={row.role === 'hr'} size="sm" onClick={() => handlePromote(row._id)}>Make HR</Button>
+                                            <Button variant="filled" size="sm" onClick={() => handleIncrementSalary(row._id, row.salary)}>
+                                                <span>Salary</span><ChevronsUp className="inline ml-2 bg-white rounded-full text-black" size={16} />
+                                            </Button>
+                                            <Button variant="filled" color="red" size="sm" onClick={() => handleFire(row._id)}>Fire</Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button variant="filled" size="sm" disabled>Make HR</Button>
+                                            <Button variant="filled" size="sm" disabled>Salary++</Button>
+                                            <span className="text-sm text-red-900 bg-red-100 px-3 py-1 rounded-full w-fit">Fired</span>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    ))}
                 </CardBody>
                 <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-700 w-full">

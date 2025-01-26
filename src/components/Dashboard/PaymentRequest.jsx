@@ -34,6 +34,7 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
+    ButtonGroup,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
@@ -129,7 +130,7 @@ export default function PaymentRequest() {
     useEffect(() => {
         setData(payRequest);
     }, [payRequest]);
-    console.log(data);
+    //console.log(data);
 
     const handlePayConfirm = async (id) => {
         try {
@@ -184,13 +185,18 @@ export default function PaymentRequest() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
+    const [view, setView] = useState(true);
     return (
         <>
             <Card className="h-full w-full border mt-10">
-                <div className="h-10">
-                    <h1 className="text-center w-full pt-5 text-xl font-bold">Payment Request</h1>
+                <h1 className="text-center w-full py-5 text-xl font-bold">Work Sheet</h1>
+                <div className="w-fit mx-auto">
+                    <ButtonGroup variant="outlined">
+                        <Button className={`${view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Table View</Button>
+                        <Button className={`${!view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Card View</Button>
+                    </ButtonGroup>
                 </div>
-                <CardBody className="overflow-x-scroll px-0">
+                <CardBody className={`overflow-x-scroll px-0 ${!view && 'hidden'}`}>
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>
                             {table.getHeaderGroups().map((headerGroup) => (
@@ -262,12 +268,33 @@ export default function PaymentRequest() {
                                         )
                                     ))}
                                     <td className="space-x-2">
-                                        <Button variant="filled" disabled={row.original.status==='paid'} size="sm" onClick={() => handlePayConfirm(row.original._id)}>Confirm</Button>
+                                        <Button variant="filled" disabled={row.original.status === 'paid'} size="sm" onClick={() => handlePayConfirm(row.original._id)}>
+                                            {row.original.status === 'paid' ? "Confirmed" : "Confirm"}
+                                        </Button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                </CardBody>
+                <CardBody className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 ${view && 'hidden'}`}>
+                    {data.map((request, i) => (
+                        <div key={request._id} className="border p-4 rounded-lg shadow-sm hover:shadow-md">
+                            <Typography variant="h6" className="mb-2">
+                                {request.name}
+                            </Typography>
+                            <Typography variant="paragraph" className="mb-2">
+                                Amount: {request.email}
+                            </Typography>
+                            <Typography variant="paragraph" className="mb-2">
+                                Amount: {request.salary}$
+                            </Typography>
+                            <Typography variant="paragraph" className="mb-2">
+                                Status: {request.month}, {request.year}
+                            </Typography>
+                            <Button variant="filled" disabled={request.status === 'paid'} size="sm" onClick={() => handlePayConfirm(request._id)}>{request.status === 'paid' ? 'Confirmed' : 'Confirm'}</Button>
+                        </div>
+                    ))}
                 </CardBody>
                 <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-700 w-full">

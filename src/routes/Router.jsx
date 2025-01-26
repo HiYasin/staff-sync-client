@@ -17,6 +17,7 @@ import Progress from "../components/Dashboard/Progress";
 import EmployeeDetails from "../pages/EmployeeDetails";
 import PaymentRequest from "../components/Dashboard/PaymentRequest";
 import AllEmployee from "../components/Dashboard/AllEmployee";
+import AllEmployeeCard from "../components/Dashboard/AllEmployee";
 
 const Router = createBrowserRouter([
     {
