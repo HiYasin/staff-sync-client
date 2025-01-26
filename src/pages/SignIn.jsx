@@ -25,7 +25,7 @@ export default function SignIn() {
         signIn(data.email, data.password)
             .then(res => {
                 //console.log(res.user);
-                if (userInfo.status === "fired") {
+                if (userInfo.status === "fired" ) {
                     Swal.fire({
                         icon: "error",
                         title: "Failed",

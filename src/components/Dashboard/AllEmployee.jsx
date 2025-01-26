@@ -148,12 +148,33 @@ export default function AllEmployee() {
         }
         //console.log(res.data);
     };
-    const handlePay = (email, salary) => {
-        //console.log(email, salary);
-        setValue('salary', salary);
-        setValue('email', email);
-        setValue('status', 'unpaid');
-        handleOpen();
+
+    const handlePromote = async(id) => {
+        try {
+            const res = await axiosSecure.patch(`/users/promote/${id}`);
+            console.log(res.data);
+            if (res.data.modifiedCount > 0 && res.data.acknowledged) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Employee promoted to HR successfully",
+                });
+                refetch();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong!",
+                });
+            }
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "An error occurred!",
+            });
+        }
     }
     const handleFire = (id) => {
         Swal.fire({
@@ -166,31 +187,31 @@ export default function AllEmployee() {
             confirmButtonText: 'Yes, fire him!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-            try {
-                const res = await axiosSecure.patch(`/users/fire/${id}`);
-                console.log(res.data);
-                if (res.data.modifiedCount > 0 && res.data.acknowledged) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "Employee fired successfully",
-                });
-                refetch();
-                } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Something went wrong!",
-                });
+                try {
+                    const res = await axiosSecure.patch(`/users/fire/${id}`);
+                    console.log(res.data);
+                    if (res.data.modifiedCount > 0 && res.data.acknowledged) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: "Employee fired successfully",
+                        });
+                        refetch();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Something went wrong!",
+                        });
+                    }
+                } catch (error) {
+                    console.log(error)
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "An error occurred while verifying the user.",
+                    });
                 }
-            } catch (error) {
-                console.log(error)
-                Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "An error occurred while verifying the user.",
-                });
-            }
             }
         });
     };
@@ -302,7 +323,7 @@ export default function AllEmployee() {
                                             {
                                                 row.original.status === 'running' ?
                                                     <>
-                                                        <Button variant="filled" size="sm" onClick={() => alert(row.original.name)}>Make HR</Button>
+                                                        <Button variant="filled" disabled={row.original.role === 'hr'} size="sm" onClick={() => handlePromote(row.original._id)}>Make HR</Button>
                                                         <Button variant="filled" color="red" size="sm" onClick={() => handleFire(row.original._id)}>Fire</Button>
                                                     </>
                                                     :
@@ -379,49 +400,6 @@ export default function AllEmployee() {
                     </div>
                 </CardFooter>
             </Card>
-            <Dialog open={open} handler={handleOpen} size="xs">
-                <DialogHeader className="text-center">Create Payment Request</DialogHeader>
-                <DialogBody>
-                    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
-                        <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{userInfo.salary}$</span></div>
-                        <div>
-                            <select {...register("month", { required: "Month is required" })} defaultValue={''}
-                                value={month}
-                                onChange={e => setMonth(e.target.value)}
-                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2"
-                            >
-                                <option value="">Select Month</option>
-                                {months.map((month) => (
-                                    <option key={month} value={month}>
-                                        {month}
-                                    </option>
-                                ))}
-                            </select>
-                            <p className="text-red-500">{errors.month?.message}</p>
-                        </div>
-                        <div>
-                            <select {...register("year", { required: "Year is required" })} defaultValue={''}
-                                value={year}
-                                onChange={e => setYear(e.target.value)}
-                                className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2"
-                            >
-                                <option value="">Select Year</option>
-                                {years.map((year) => (
-                                    <option key={year} value={year}>
-                                        {year}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <p className="text-red-500">{errors.year?.message}</p>
-                        </div>
-                        <div className="grid gap-5">
-                            <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
-                            <Button variant="gradient" type="submit" className="min-w-[200px]" onClick={handleOpen}>Confirm</Button>
-                        </div>
-                    </form>
-                </DialogBody>
-            </Dialog>
         </>
     );
 }
