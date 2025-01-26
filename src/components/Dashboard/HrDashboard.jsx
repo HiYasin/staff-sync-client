@@ -11,7 +11,9 @@ import {
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
 import '../Dashboard/Dashboard.css'
+import useAuth from "../../customHooks/useAuth";
 export default function HrDashboard() {
+  const {logOut} = useAuth();
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -83,7 +85,7 @@ export default function HrDashboard() {
             </ListItem>
           </NavLink>
         </List>
-        <Button className="mt-3 ml-5" size="sm">
+        <Button className="mt-3 ml-5" size="sm" onClick={logOut}>
           Sign Out
         </Button>
       </Drawer>
