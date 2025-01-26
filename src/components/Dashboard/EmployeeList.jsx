@@ -148,8 +148,9 @@ export default function EmployeeList() {
         }
         //console.log(res.data);
     };
-    const handlePay = (email, salary) => {
+    const handlePay = (email, salary, name) => {
         //console.log(email, salary);
+        setValue('name', name)
         setValue('salary', salary);
         setValue('email', email);
         setValue('status', 'unpaid');
@@ -300,7 +301,7 @@ export default function EmployeeList() {
                                         <Button
                                             variant="filled"
                                             size="sm"
-                                            onClick={() => { handlePay(row.original.email, row.original.salary)}}
+                                            onClick={() => { handlePay(row.original.email, row.original.salary, row.original.name)}}
                                             disabled={!row.original.verified}
                                         >Pay</Button>
 

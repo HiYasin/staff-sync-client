@@ -173,10 +173,6 @@ export default function Progress() {
                             placeholder="Search with name/ task/ email"
                             className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2"
                         />
-                        <Search
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                            size={20}
-                        />
                     </>
 
                     <>
