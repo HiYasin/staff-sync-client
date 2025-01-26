@@ -162,7 +162,7 @@ export default function Progress() {
         <>
             <Card className="h-full w-full border mt-10">
                 <div className="h-fit">
-                    <h1 className="text-center w-full pt-5 text-xl font-bold">Work Sheet</h1>
+                    <h1 className="text-center w-full pt-5 text-xl font-bold">Employee Progress</h1>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 p-5 md:px-10">

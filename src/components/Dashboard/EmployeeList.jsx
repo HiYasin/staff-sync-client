@@ -217,7 +217,7 @@ export default function EmployeeList() {
         <>
             <Card className="h-full w-full border mt-10">
                 <div className="h-10">
-                    <h1 className="text-center w-full pt-5 text-xl font-bold">Work Sheet</h1>
+                    <h1 className="text-center w-full pt-5 text-xl font-bold">Employee List</h1>
                 </div>
                 <CardBody className="overflow-x-scroll px-0">
                     <table className="w-full min-w-max table-auto text-left">

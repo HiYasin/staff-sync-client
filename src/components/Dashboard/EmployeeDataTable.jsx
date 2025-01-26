@@ -156,7 +156,7 @@ export default function EmployeeDataTable() {
   }
 
   const handleDelete = (id) => {
-    console.log(id);
+    //console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -175,7 +175,7 @@ export default function EmployeeDataTable() {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your record has been deleted.",
               icon: "success"
             });
 
@@ -382,7 +382,7 @@ export default function EmployeeDataTable() {
         </CardFooter>
       </Card>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Its a simple modal.</DialogHeader>
+        <DialogHeader>Edit work record</DialogHeader>
         <DialogBody>
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
             <div className="min-w-52 relative">

@@ -267,7 +267,7 @@ export default function AllEmployee() {
         <>
             <Card className="h-full w-full border mt-10">
                 <div className="h-fit">
-                    <h1 className="text-center w-full py-5 text-xl font-bold">Work Sheet</h1>
+                    <h1 className="text-center w-full py-5 text-xl font-bold">All Employee List</h1>
                     <div className="w-fit mx-auto">
                         <ButtonGroup variant="outlined">
                             <Button className={`${view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Table View</Button>
@@ -474,7 +474,7 @@ export default function AllEmployee() {
                 </CardFooter>
             </Card>
             <Dialog open={open} handler={handleOpen} size="xs">
-                <DialogHeader className="text-center">Create Payment Request</DialogHeader>
+                <DialogHeader className="text-center">Salary Increment</DialogHeader>
                 <DialogBody>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
                         <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{currentSalary}</span></div>
@@ -490,7 +490,7 @@ export default function AllEmployee() {
                         </div>
                         <div className="grid gap-5">
                             <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
-                            <Button variant="gradient" type="submit" className="min-w-[200px]" onClick={handleOpen}>Confirm</Button>
+                            <Button variant="gradient" type="submit" className="min-w-[200px]">Confirm</Button>
                         </div>
                     </form>
                 </DialogBody>

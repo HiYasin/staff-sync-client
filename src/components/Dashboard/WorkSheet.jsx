@@ -25,7 +25,7 @@ export default function WrokSheet() {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = async (data) => {
         // console.log({ ...data, date: date });
-        const task = { ...data, date: format(date, "PPp"), email: userInfo.email };
+        const task = {name: userInfo.name, email: userInfo.email, ...data, date: format(date, "PPp") };
         //console.log(task);
         const res = await axiosSecure.post("/work-sheet", task);
         //console.log(res.data);

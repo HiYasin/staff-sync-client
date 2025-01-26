@@ -128,7 +128,8 @@ export default function PaymentRequest() {
 
 
     useEffect(() => {
-        setData(payRequest);
+        //setData(payRequest);
+        setData(payRequest.sort((a, b) => (a.status === 'unpaid' ? -1 : 1)));
     }, [payRequest]);
     //console.log(data);
 
@@ -189,7 +190,7 @@ export default function PaymentRequest() {
     return (
         <>
             <Card className="h-full w-full border mt-10">
-                <h1 className="text-center w-full py-5 text-xl font-bold">Work Sheet</h1>
+                <h1 className="text-center w-full py-5 text-xl font-bold">Payment Request</h1>
                 <div className="w-fit mx-auto">
                     <ButtonGroup variant="outlined">
                         <Button className={`${view && 'bg-gray-900 text-white'}`} onClick={() => { setView(!view) }}>Table View</Button>

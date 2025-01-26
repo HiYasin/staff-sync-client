@@ -27,19 +27,9 @@ const useProfileMenu = () => {
           link: '/',
         },
         {
-          label: "Edit Profile",
-          icon: Cog6ToothIcon,
-          link: '/contact',
-        },
-        {
           label: "Dashboard",
           icon: InboxArrowDownIcon,
           link: dashboard,
-        },
-        {
-          label: "Help",
-          icon: LifebuoyIcon,
-          link: '/signin',
         },
         {
           label: "Sign Out",

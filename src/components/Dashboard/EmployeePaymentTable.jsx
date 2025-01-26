@@ -113,7 +113,7 @@ export default function EmployeePaymentTable() {
 
   const [axiosSecure] = useAxios();
   const { user } = useAuth();
-  console.log(user.email);
+  //console.log(user.email);
   const { data: payments = [] } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
