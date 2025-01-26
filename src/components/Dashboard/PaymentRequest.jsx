@@ -138,11 +138,10 @@ export default function PaymentRequest() {
             const today = new Date();
             const formattedDate = format(today, 'yyyy-MM-dd');
             const res = await axiosSecure.patch(`/payment/${id}`, { date: formattedDate });
-            console.log(res.data);
+            //console.log(res.data);
             if (res.data.modifiedCount > 0 && res.data.acknowledged) {
                 Swal.fire({
                     icon: "success",
-                    title: "Success",
                     title: "Success",
                     text: "Payment confirmation successfully",
                 });
@@ -155,7 +154,7 @@ export default function PaymentRequest() {
                 });
             }
         } catch (error) {
-            console.log(error)
+            ///console.log(error)
             Swal.fire({
                 icon: "error",
                 title: "Error",

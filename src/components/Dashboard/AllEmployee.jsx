@@ -135,7 +135,7 @@ export default function AllEmployee() {
     const handlePromote = async (id) => {
         try {
             const res = await axiosSecure.patch(`/users/promote/${id}`);
-            console.log(res.data);
+            //console.log(res.data);
             if (res.data.modifiedCount > 0 && res.data.acknowledged) {
                 Swal.fire({
                     icon: "success",
@@ -163,7 +163,7 @@ export default function AllEmployee() {
 
     const [currentSalary, setCurrentSalary] = useState(0);
     const onSubmit = async (data) => {
-        console.log(data, currentSalary);
+        //console.log(data, currentSalary);
         try {
             const res = await axiosSecure.patch(`/salary-increment/${data.id}`, { salary: data.salary });
             //console.log(res.data);
