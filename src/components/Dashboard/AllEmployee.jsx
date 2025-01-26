@@ -115,6 +115,7 @@ export default function AllEmployee() {
         queryKey: ['employees'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/all`);
+            //console.log(res.data.status);
             return res.data;
         }
     });
@@ -165,7 +166,7 @@ export default function AllEmployee() {
         console.log(data, currentSalary);
         try {
             const res = await axiosSecure.patch(`/salary-increment/${data.id}`, { salary: data.salary });
-            console.log(res.data);
+            //console.log(res.data);
             if (res.data.modifiedCount > 0 && res.data.acknowledged) {
                 Swal.fire({
                     icon: "success",
@@ -183,7 +184,7 @@ export default function AllEmployee() {
                 });
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error);
             Swal.fire({
                 icon: "error",
                 title: "Error",

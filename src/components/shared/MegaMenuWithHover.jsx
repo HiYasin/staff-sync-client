@@ -39,7 +39,7 @@ import useAuth from "../../customHooks/useAuth";
 import { UserCircle2Icon } from "lucide-react";
 import useAxios from "../../customHooks/useAxios";
 import useProfileMenu from "../../customHooks/useProfileMenu";
-const [axiosSecure] = useAxios();
+// const [axiosSecure] = useAxios();
 const navListMenuItems = [
   {
     title: "Products",
@@ -180,6 +180,7 @@ function NavList() {
 
 
 function ProfileMenu() {
+  const [axiosSecure]=useAxios();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user, logOut } = useAuth();
   const [userInfo, setUserInfo] = useState();
@@ -264,11 +265,12 @@ function ProfileMenu() {
 }
 
 export function MegaMenuWithHover() {
+  const { user } = useAuth();
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
 
 
-  const { user } = useAuth();
+  
 
   React.useEffect(() => {
     window.addEventListener(

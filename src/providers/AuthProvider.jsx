@@ -1,13 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
-import useAxios from "../customHooks/useAxios";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
-    const [axiosSecure] = useAxios();
     const [user, setUser] = useState({});
     const [userInfo, setUserInfo] = useState({});
     const [userLoading, setUserLoading] = useState(true);
@@ -33,16 +32,32 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
+    //const currentToken = localStorage.getItem('access-token');
     useEffect(() => {
-        
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            if (user) {
-                axiosSecure.get(`/users?email=${user.email}`)
+            if (currentUser) {
+                // get token and store
+                const userData = {email: currentUser.email};
+                axios.post('http://localhost:3000/jwt', userData)
+                 .then(res => {
+                    if(res.data.token){
+                        localStorage.setItem('access-token', res.data.token);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+
+                axios.get(`http://localhost:3000/users?email=${user?.email}`)
                     .then(res => {
                         setUserInfo(res.data);
-                        //console.log(res.data);
                     });
+                
+            }else{
+                //remove token from client side
+                //logOut();
+                localStorage.removeItem('access-token');
             }
             setUserLoading(false);
         });
@@ -52,6 +67,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [user]);
 
+    //console.log(userInfo);
     const authInfo = {
         user,
         userInfo,
