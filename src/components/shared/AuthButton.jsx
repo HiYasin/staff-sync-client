@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export function AuthButton() {
-    const { googleSignIn } = useAuth();
+    const { logOut, googleSignIn } = useAuth();
     const [axiosPublic] = useAxios();
     const location = useLocation();
     const redirectTo = location?.state?.from || '/';
@@ -25,16 +25,28 @@ export function AuthButton() {
                     role: 'employee',
                     image: res.user?.photoURL,
                     verified: false,
+                    status: 'running',
                 }
 
                 const response = await axiosPublic.post('/users', userInfo);
+                //console.log(response.data);
                 if (response.data.insertedId) {
                     Swal.fire({
                         icon: "scuccess",
                         title: "Success",
                         text: "Register & Login Successfully!",
                     });
-                } else {
+                }
+                else if(response.data.status === "fired"){
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Login Failed",
+                        text: "Your are fired and account has been terminated",
+                    });
+                    logOut();
+                } 
+                else {
                     Swal.fire({
                         icon: "success",
                         title: "Success",

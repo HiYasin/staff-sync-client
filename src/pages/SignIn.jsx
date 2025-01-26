@@ -17,7 +17,7 @@ export default function SignIn() {
     const navigate = useNavigate();
     //console.log(redirectTo);
 
-    const { signIn } = useAuth();
+    const { signIn,logOut, userInfo } = useAuth();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = async(data) => {
@@ -25,12 +25,21 @@ export default function SignIn() {
         signIn(data.email, data.password)
             .then(res => {
                 //console.log(res.user);
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "Login Success!",
-                });
-                navigate(redirectTo, { replace: true });
+                if (userInfo.status === "fired") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed",
+                        text: "Your are fired and account has been terminated.",
+                    });
+                    logOut();
+                } else {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Login Success!",
+                    });
+                    navigate(redirectTo, { replace: true });
+                }
             })
             .catch((error) => {
                 //console.log(error);

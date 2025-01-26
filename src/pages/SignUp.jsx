@@ -63,10 +63,11 @@ export default function SignUp() {
                     role: data.role,
                     image: imageUrl,
                     verified: false,
+                    status: 'running',
                 }
-                console.log(userInfo);
+                //console.log(userInfo);
                 const result = await axiosPublic.post('/users', userInfo);
-                console.log("mongo:", response.data);
+                //console.log("mongo:", response.data);
                 if (result.data.insertedId) {
                     Swal.fire({
                         icon: "success",
@@ -77,8 +78,8 @@ export default function SignUp() {
                 } else {
                     Swal.fire({
                         icon: "error",
-                        title: "Mongo Error",
-                        text: "Something error!",
+                        title: "Error",
+                        text: "Account already exist!",
                     });
                 }
             })
