@@ -148,8 +148,10 @@ export default function EmployeeList() {
         }
         //console.log(res.data);
     };
+    const [ currentSalary, setSalary ] = useState('');
     const handlePay = (email, salary, name) => {
         //console.log(email, salary);
+        setSalary(salary);
         setValue('name', name)
         setValue('salary', salary);
         setValue('email', email);
@@ -376,7 +378,7 @@ export default function EmployeeList() {
                 <DialogHeader className="text-center">Create Payment Request</DialogHeader>
                 <DialogBody>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
-                        <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{userInfo.salary}$</span></div>
+                        <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{currentSalary}$</span></div>
                         <div>
                             <select {...register("month", { required: "Month is required" })} defaultValue={''}
                                 value={month}

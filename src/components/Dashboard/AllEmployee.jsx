@@ -14,6 +14,7 @@ import {
     ChevronRight,
     ChevronsLeft,
     ChevronsRight,
+    ChevronsUp,
     CircleUserRoundIcon,
     CircleXIcon,
     Command,
@@ -34,6 +35,7 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
+    Input,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
@@ -124,32 +126,10 @@ export default function AllEmployee() {
         //console.log(employees);
     }, [employees]);
 
-    const { userInfo } = useAuth();
     //console.log(userInfo);
-    const { register, formState: { errors }, handleSubmit, setValue } = useForm();
+    const { register, formState: { errors }, handleSubmit, setValue, watch } = useForm();
 
-    const onSubmit = async (data) => {
-        const payEmployee = { ...data };
-        //console.log(payEmployee);
-        const res = await axiosSecure.post(`/pay`, payEmployee);
-        //console.log(res.data);
-        if (res.data.acknowledged && res.data.insertedId) {
-            Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Payment request send successfully",
-            });
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: res.data.message,
-            });
-        }
-        //console.log(res.data);
-    };
-
-    const handlePromote = async(id) => {
+    const handlePromote = async (id) => {
         try {
             const res = await axiosSecure.patch(`/users/promote/${id}`);
             console.log(res.data);
@@ -175,6 +155,46 @@ export default function AllEmployee() {
                 text: "An error occurred!",
             });
         }
+    }
+
+
+    const [ currentSalary, setCurrentSalary ] = useState(0);
+    const onSubmit = async (data) => {
+        console.log(data, currentSalary);
+        try {
+            const res = await axiosSecure.patch(`/salary-increment/${data.id}`, { salary: data.salary });
+            console.log(res.data);
+            if (res.data.modifiedCount > 0 && res.data.acknowledged) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    title: "Success",
+                    text: "Salary increment successfully",
+                });
+                refetch();
+                handleOpen();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Something went wrong!",
+                });
+            }
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "An error occurred!",
+            });
+        }
+    };
+
+    const handleIncrementSalary = async (id, salary) => {
+        setCurrentSalary(salary);
+        handleOpen();
+        setValue('salary', salary);
+        setValue('id', id);
     }
     const handleFire = (id) => {
         Swal.fire({
@@ -215,12 +235,6 @@ export default function AllEmployee() {
             }
         });
     };
-
-
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const years = Array.from({ length: 10 }, (_, i) => i + 2020);
-    const [month, setMonth] = useState();
-    const [year, setYear] = useState();
 
     const table = useReactTable({
         data,
@@ -324,11 +338,15 @@ export default function AllEmployee() {
                                                 row.original.status === 'running' ?
                                                     <>
                                                         <Button variant="filled" disabled={row.original.role === 'hr'} size="sm" onClick={() => handlePromote(row.original._id)}>Make HR</Button>
+                                                        <Button variant="filled" size="sm" onClick={() => handleIncrementSalary(row.original._id, row.original.salary)}>
+                                                            <span>Salary</span><ChevronsUp className="inline ml-2 bg-white rounded-full text-black" size={16} />
+                                                        </Button>
                                                         <Button variant="filled" color="red" size="sm" onClick={() => handleFire(row.original._id)}>Fire</Button>
                                                     </>
                                                     :
                                                     <>
                                                         <Button variant="filled" size="sm" disabled>Make HR</Button>
+                                                        <Button variant="filled" size="sm" disabled>Salary++</Button>
                                                         <span className="text-sm text-red-900 bg-red-100 px-3 py-1 rounded-full w-fit">Fired</span>
                                                     </>
 
@@ -400,6 +418,28 @@ export default function AllEmployee() {
                     </div>
                 </CardFooter>
             </Card>
+            <Dialog open={open} handler={handleOpen} size="xs">
+                <DialogHeader className="text-center">Create Payment Request</DialogHeader>
+                <DialogBody>
+                    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5">
+                        <div className="border rounded-md border-blue-gray-200 py-2 text-center">Current Salary: <span className="text-green-600 bg-green-100/50 rounded-md px-4 py-2">{currentSalary}</span></div>
+                        <div>
+                            <Input label="Salary" type="number" {...register("salary", {
+                                required: "Salary is required",
+                                min: {
+                                    value: currentSalary,
+                                    message: "Salary must be greater than current salary"
+                                }
+                            })} size="lg" />
+                            <p className="text-red-500">{errors.salary?.message}</p>
+                        </div>
+                        <div className="grid gap-5">
+                            <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[200px]" > <span>Cancel</span> </Button>
+                            <Button variant="gradient" type="submit" className="min-w-[200px]" onClick={handleOpen}>Confirm</Button>
+                        </div>
+                    </form>
+                </DialogBody>
+            </Dialog>
         </>
     );
 }
