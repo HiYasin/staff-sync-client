@@ -12,7 +12,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
 import '../Dashboard/Dashboard.css'
 import useAuth from "../../customHooks/useAuth";
-export default function HrDashboard() {
+export default function AdminDashboard() {
   const {logOut} = useAuth();
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
