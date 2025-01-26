@@ -149,7 +149,7 @@ export default function EmployeeList() {
         //console.log(res.data);
     };
     const handlePay = (email, salary) => {
-        console.log(email, salary);
+        //console.log(email, salary);
         setValue('salary', salary);
         setValue('email', email);
         setValue('status', 'unpaid');
