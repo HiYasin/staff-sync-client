@@ -2,8 +2,37 @@ import React from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import ContainerX from "../components/shared/ContainerX";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export function Contact() {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const onSubmit = async (data) => {
+        try {
+            const res = await axios.post('http://localhost:3000/contact', data);
+            //console.log(res.data);
+            if(res.data.insertedId && res.data.acknowledged){
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Message send success!",
+                });
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Message send failed!",
+                });
+            }
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Message send failed!",
+            });
+        }
+    }
     return (
         <section className="px-8 py-8 lg:py-16">
             <ContainerX>
@@ -29,97 +58,29 @@ export function Contact() {
                                 78, Bay View Tower, Level 12, <br />
                                 Agrabad Commercial Area, Chittagong</h2>
                         </div>
-                        <form
-                            action="#"
-                            className="flex flex-col gap-4 lg:max-w-sm"
-                        >
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <Typography
-                                        variant="small"
-                                        className="mb-2 text-left font-medium !text-gray-900"
-                                    >
-                                        First Name
-                                    </Typography>
-                                    <Input
-                                        color="gray"
-                                        size="lg"
-                                        placeholder="First Name"
-                                        name="first-name"
-                                        className="focus:border-t-gray-900"
-                                        containerProps={{
-                                            className: "!min-w-full",
-                                        }}
-                                        labelProps={{
-                                            className: "hidden",
-                                        }}
-                                    />
-                                </div>
-                                <div>
-                                    <Typography
-                                        variant="small"
-                                        className="mb-2 text-left font-medium !text-gray-900"
-                                    >
-                                        Last Name
-                                    </Typography>
-                                    <Input
-                                        color="gray"
-                                        size="lg"
-                                        placeholder="Last Name"
-                                        name="last-name"
-                                        className="focus:border-t-gray-900"
-                                        containerProps={{
-                                            className: "!min-w-full",
-                                        }}
-                                        labelProps={{
-                                            className: "hidden",
-                                        }}
-                                    />
-                                </div>
-                            </div>
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 lg:max-w-sm">
                             <div>
-                                <Typography
-                                    variant="small"
-                                    className="mb-2 text-left font-medium !text-gray-900"
-                                >
-                                    Your Email
-                                </Typography>
+                                <Input {...register("name", { required: false })}
+                                    label="Your Name" type="text" size="lg" placeholder="e.g. John Smith" />
+                            </div>
+
+                            <div>
                                 <Input
-                                    color="gray"
-                                    size="lg"
-                                    placeholder="name@email.com"
-                                    name="email"
-                                    className="focus:border-t-gray-900"
-                                    containerProps={{
-                                        className: "!min-w-full",
-                                    }}
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                />
+                                    {...register("email", { required: "Email is required" })}
+                                    label="Email" type="email" size="lg" placeholder="example@mail.com" />
+                                <p className="text-red-500">{errors.email?.message}</p>
                             </div>
+
                             <div>
-                                <Typography
-                                    variant="small"
-                                    className="mb-2 text-left font-medium !text-gray-900"
-                                >
-                                    Your Message
-                                </Typography>
                                 <Textarea
+                                    {...register("message", { required: "Message can't be empty" })}
+                                    label="Your Message"
+                                    type="text"
                                     rows={6}
-                                    color="gray"
-                                    placeholder="Message"
-                                    name="message"
-                                    className="focus:border-t-gray-900"
-                                    containerProps={{
-                                        className: "!min-w-full",
-                                    }}
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
                                 />
+                                <p className="text-red-500">{errors.message?.message}</p>
                             </div>
-                            <Button className="w-full" color="gray">
+                            <Button className="w-full" color="gray" type="submit">
                                 Send message
                             </Button>
                         </form>
