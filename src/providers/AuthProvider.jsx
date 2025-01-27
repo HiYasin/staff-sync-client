@@ -50,12 +50,12 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             if (currentUser) {
                 const fetchUserInfo = async () => {
-                    const res = await axios.get(`http://localhost:3000/users?email=${currentUser?.email}`);
+                    const res = await axios.get(`https://staff-sync-server.vercel.app/users?email=${currentUser?.email}`);
                     setUserInfo(res.data);
                     
                     const userData = { email: res.data.email, role: res.data.role };
                     //console.log(userData);
-                    const tokenRes = await axios.post('http://localhost:3000/jwt', userData);
+                    const tokenRes = await axios.post('https://staff-sync-server.vercel.app/jwt', userData);
                     if (tokenRes.data.token) {
                         localStorage.setItem('access-token', tokenRes.data.token);
                     }
@@ -80,7 +80,7 @@ const AuthProvider = ({ children }) => {
     //         if (currentUser) {
     //             // get token and store
     //             const userData = { email: currentUser.email };
-    //             axios.post('http://localhost:3000/jwt', userData)
+    //             axios.post('https://staff-sync-server.vercel.app/jwt', userData)
     //                 .then(res => {
     //                     if (res.data.token) {
     //                         localStorage.setItem('access-token', res.data.token);
@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
     //                     console.error(err);
     //                 });
 
-    //             axios.get(`http://localhost:3000/users?email=${user?.email}`)
+    //             axios.get(`https://staff-sync-server.vercel.app/users?email=${user?.email}`)
     //                 .then(res => {
     //                     setUserInfo(res.data);
     //                 });

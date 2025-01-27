@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useAxiosSecure from './useAxiosSecure';
 const axiosPublic = axios.create({
-    base_URL: 'http://localhost:3000',
+    base_URL: 'https://staff-sync-server.vercel.app',
     withCredentials: true,
 });
 

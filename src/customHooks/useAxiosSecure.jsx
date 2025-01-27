@@ -3,7 +3,7 @@ import useAuth from './useAuth';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://staff-sync-server.vercel.app',
 });
 const useAxiosSecure = () => {
     const { logOut } = useAuth();

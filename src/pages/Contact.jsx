@@ -10,7 +10,7 @@ export function Contact() {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = async (data) => {
         try {
-            const res = await axios.post('http://localhost:3000/contact', data);
+            const res = await axios.post('https://staff-sync-server.vercel.app/contact', data);
             //console.log(res.data);
             if(res.data.insertedId && res.data.acknowledged){
                 Swal.fire({
