@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { info } from "autoprefixer";
 
 export const AuthContext = createContext(null);
 
@@ -15,6 +16,12 @@ const AuthProvider = ({ children }) => {
     const createUser = (email, password) => {
         setUserLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+
+
+    const updateRole = (name, photoURL) => {
+        return updateProfile(auth.currentUser, { displayName: name, photoURL: photoURL })
     }
 
     const signIn = (email, password) => {
@@ -42,31 +49,18 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             if (currentUser) {
-                const fetchUserInfo = async (currentUser) => {
-                    try {
-                        const res = await axios.get(`http://localhost:3000/users?email=${currentUser?.email}`);
-                        //console.log(res.data);
-                        setUserInfo(res.data);
-                    } catch (err) {
-                        console.error(err);
-                    }
-                };
-                fetchUserInfo(user);
-            }
-
-            if (user) {
-                //console.log(userInfo);
-                const fetchToken = async () => {
-                    const userData = { email: user?.email};
-                    console.log(userData);
-
+                const fetchUserInfo = async () => {
+                    const res = await axios.get(`http://localhost:3000/users?email=${currentUser?.email}`);
+                    setUserInfo(res.data);
+                    
+                    const userData = { email: res.data.email, role: res.data.role };
+                    //console.log(userData);
                     const tokenRes = await axios.post('http://localhost:3000/jwt', userData);
-                    //console.log(tokenRes.data);
                     if (tokenRes.data.token) {
                         localStorage.setItem('access-token', tokenRes.data.token);
                     }
-                }
-                fetchToken();
+                };
+                fetchUserInfo();
             }
             else {
                 localStorage.removeItem('access-token');
@@ -78,6 +72,7 @@ const AuthProvider = ({ children }) => {
             return unsubscribe();
         }
     }, [user]);
+
 
     // useEffect(() => {
     //     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -113,12 +108,12 @@ const AuthProvider = ({ children }) => {
     //     }
     // }, [user]);
 
-    //console.log(userInfo);
     const authInfo = {
         user,
         userInfo,
         userLoading,
         createUser,
+        updateRole,
         signIn,
         logOut,
         googleSignIn,

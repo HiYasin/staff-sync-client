@@ -184,16 +184,9 @@ function NavList() {
 function ProfileMenu() {
   const [axiosSecure] = useAxios();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { user, logOut } = useAuth();
-  const [userInfo, setUserInfo] = useState();
+  const { user, userInfo, logOut } = useAuth();
   const profileMenuItems = useProfileMenu();
-  useEffect(() => {
-    axiosSecure.get(`/users?email=${user.email}`)
-      .then(res => {
-        setUserInfo(res.data);
-        //console.log(res.data);
-      });
-  }, [user]);
+
 
   const closeMenu = () => setIsMenuOpen(false);
   //console.log(user.email);
@@ -270,7 +263,6 @@ export function MegaMenuWithHover() {
   const { user } = useAuth();
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
-
 
 
 
