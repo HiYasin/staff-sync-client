@@ -8,12 +8,11 @@ A web application to manage employees effectively. The Employee Management Syste
 
 - Email: admin@staff.com
 - Password: Admin@123
+You can promote any employee to HR from admin panel and through the HR account verify any employee.
 
 # 🌐 Live Link
 
-```html
-https://staff-sync-9fbf6.web.app/
-```
+[https://staff-sync-9fbf6.web.app/](https://staff-sync-9fbf6.web.app/)
 
 # 🔑Key Features
 
