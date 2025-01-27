@@ -163,7 +163,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={dashboard}>dashboard</NavLink></ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
 
       </Typography>
       <Typography

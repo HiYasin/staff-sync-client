@@ -94,7 +94,7 @@ const columns = [
       </span>
     ),
   }),
-  columnHelper.accessor("trxID", {
+  columnHelper.accessor("_id", {
     cell: (info) => info.getValue(),
     header: () => (
       <span className="flex items-center">

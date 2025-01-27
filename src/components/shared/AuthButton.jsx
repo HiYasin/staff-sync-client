@@ -37,15 +37,15 @@ export function AuthButton() {
                         text: "Register & Login Successfully!",
                     });
                 }
-                else if(response.data.status === "fired"){
-
+                else if (response.data.status === "fired") {
+                    logOut();
                     Swal.fire({
                         icon: "error",
                         title: "Login Failed",
                         text: "Your are fired and account has been terminated",
                     });
-                    logOut();
-                } 
+
+                }
                 else {
                     Swal.fire({
                         icon: "success",
