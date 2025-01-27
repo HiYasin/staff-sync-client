@@ -25,6 +25,7 @@ const useAxiosSecure = () => {
         //console.log(error.response.status, error.response.statusText);
         const status = error.status;
         if (status === 401 || status === 403) {
+            //console.log('Error from here');
             Swal.fire({
                 title: "Error!",
                 text: `Request failed with status code ${status}`,
