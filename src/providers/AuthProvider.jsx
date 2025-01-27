@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext(null);
 
@@ -23,6 +24,11 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setUserLoading(true);
+        Swal.fire({
+            icon: "success",
+            title: "Log Out",
+            text: "Log out successfully",
+        });
         return signOut(auth);
     }
 
