@@ -1,12 +1,9 @@
 
-import { UserIcon } from 'lucide-react';
 import useAuth from './useAuth';
 import {
     UserCircleIcon,
     PowerIcon,
-    LifebuoyIcon,
     InboxArrowDownIcon,
-    Cog6ToothIcon,
   
   } from "@heroicons/react/24/solid";
 const useProfileMenu = () => {

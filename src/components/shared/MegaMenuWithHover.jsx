@@ -43,33 +43,23 @@ import useProfileMenu from "../../customHooks/useProfileMenu";
 const navListMenuItems = [
   {
     title: "Products",
-    // description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
+    link: '/'
   },
   {
     title: "About Us",
-    // description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
-  },
-  {
-    title: "Blog",
-    // description: "Find the perfect solution for your needs.",
-    icon: Bars4Icon,
+    link: '/'
   },
   {
     title: "Services",
-    // description: "Learn how we can help you achieve your goals.",
     icon: SunIcon,
-  },
-  {
-    title: "Support",
-    // description: "Reach out to us for assistance or inquiries",
-    icon: GlobeAmericasIcon,
+    link: '/'
   },
   {
     title: "Contact",
-    // description: "Find the perfect solution for your needs.",
     icon: PhoneIcon,
+    link: '/contact'
   }
 ];
 
@@ -77,33 +67,26 @@ function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg p-0">
-          <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-            {" "}
-            {React.createElement(icon, {
-              strokeWidth: 2,
-              className: "h-6 text-gray-900 w-6",
-            })}
-          </div>
-          <div>
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="flex items-center text-sm font-bold"
-            >
-              {title}
-            </Typography>
-            {/* <Typography
-              variant="paragraph"
-              className="text-xs !font-medium text-blue-gray-500"
-            >
-              {description}
-            </Typography> */}
-          </div>
-        </MenuItem>
-      </a>
+    ({ icon, title, link }, key) => (
+      <MenuItem key={key} className="flex items-center gap-3 rounded-lg p-0">
+        <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+          {" "}
+          {React.createElement(icon, {
+            strokeWidth: 2,
+            className: "h-6 text-gray-900 w-6",
+          })}
+        </div>
+        <div>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="flex items-center text-sm font-bold"
+          >
+            <Link to={link}>{title}</Link>
+          </Typography>
+        </div>
+      </MenuItem>
+
     ),
   );
 
@@ -151,6 +134,16 @@ function NavListMenu() {
 }
 
 function NavList() {
+  const { userInfo } = useAuth();
+  let dashboard = '';
+  if (userInfo.role === 'employee') {
+    dashboard = '/dashboard/work-sheet';
+  } else if (userInfo.role === 'hr') {
+    dashboard = '/dashboard/employee-list';
+  } else {
+    dashboard = '/dashboard/all-employee';
+  }
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
@@ -170,7 +163,16 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
+        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={dashboard}>dashboard</NavLink></ListItem>
 
+      </Typography>
+      <Typography
+        as="div"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
         <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/contact'}>Contact</NavLink></ListItem>
 
       </Typography>
@@ -180,14 +182,14 @@ function NavList() {
 
 
 function ProfileMenu() {
-  const [axiosSecure]=useAxios();
+  const [axiosSecure] = useAxios();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user, logOut } = useAuth();
   const [userInfo, setUserInfo] = useState();
   const profileMenuItems = useProfileMenu();
-  useEffect(()=>{
-      axiosSecure.get(`/users?email=${user.email}`)
-      .then(res =>{
+  useEffect(() => {
+    axiosSecure.get(`/users?email=${user.email}`)
+      .then(res => {
         setUserInfo(res.data);
         //console.log(res.data);
       });
@@ -212,7 +214,7 @@ function ProfileMenu() {
           color="blue-gray"
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
-          {user&&userInfo?
+          {user && userInfo ?
             <Avatar
               variant="circular"
               size="sm"
@@ -270,7 +272,7 @@ export function MegaMenuWithHover() {
   const navigate = useNavigate();
 
 
-  
+
 
   React.useEffect(() => {
     window.addEventListener(
