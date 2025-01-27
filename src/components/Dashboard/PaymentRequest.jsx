@@ -35,8 +35,8 @@ import {
     DialogHeader,
     DialogBody,
     ButtonGroup,
+    Input,
 } from "@material-tailwind/react";
-
 import React, { useEffect, useState } from "react";
 import { format, set } from "date-fns";
 import useAxios from "../../customHooks/useAxios";
@@ -48,6 +48,15 @@ import useEmployee from "../../customHooks/useEmployee";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
+
+// stripe
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from "../CheckoutForm";
+const stripePromise = loadStripe(import.meta.env.VITE_stripe_key);
+
+
+//tanstack table
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -133,36 +142,6 @@ export default function PaymentRequest() {
     }, [payRequest]);
     //console.log(data);
 
-    const handlePayConfirm = async (id) => {
-        try {
-            const today = new Date();
-            const formattedDate = format(today, 'yyyy-MM-dd');
-            const res = await axiosSecure.patch(`/payment/${id}`, { date: formattedDate });
-            //console.log(res.data);
-            if (res.data.modifiedCount > 0 && res.data.acknowledged) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: "Payment confirmation successfully",
-                });
-                refetch();
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Something went wrong!",
-                });
-            }
-        } catch (error) {
-            ///console.log(error)
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "An error occurred!",
-            });
-        }
-    }
-
     const table = useReactTable({
         data,
         columns,
@@ -185,7 +164,19 @@ export default function PaymentRequest() {
         getFilteredRowModel: getFilteredRowModel(),
     });
 
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(!open);
+
+    const [paymentInfo, setPaymentInfo] = useState({});
+
+    const handlePayConfirm = async (payInfo) => {
+        setPaymentInfo(payInfo);;
+        handleOpen();
+    }
+
     const [view, setView] = useState(true);
+
     return (
         <>
             <Card className="h-full w-full border mt-10">
@@ -268,7 +259,7 @@ export default function PaymentRequest() {
                                         )
                                     ))}
                                     <td className="space-x-2">
-                                        <Button variant="filled" disabled={row.original.status === 'paid'} size="sm" onClick={() => handlePayConfirm(row.original._id)}>
+                                        <Button variant="filled" disabled={row.original.status === 'paid'} size="sm" onClick={() => handlePayConfirm(row.original)}>
                                             {row.original.status === 'paid' ? "Confirmed" : "Confirm"}
                                         </Button>
                                     </td>
@@ -292,7 +283,7 @@ export default function PaymentRequest() {
                             <Typography variant="paragraph" className="mb-2">
                                 Status: {request.month}, {request.year}
                             </Typography>
-                            <Button variant="filled" disabled={request.status === 'paid'} size="sm" onClick={() => handlePayConfirm(request._id)}>{request.status === 'paid' ? 'Confirmed' : 'Confirm'}</Button>
+                            <Button variant="filled" disabled={request.status === 'paid'} size="sm" onClick={() => handlePayConfirm(request)}>{request.status === 'paid' ? 'Confirmed' : 'Confirm'}</Button>
                         </div>
                     ))}
                 </CardBody>
@@ -356,6 +347,36 @@ export default function PaymentRequest() {
                     </div>
                 </CardFooter>
             </Card >
+            <Dialog open={open} handler={handleOpen} size="xs">
+                <DialogHeader className="text-center">Confirm Payment</DialogHeader>
+                <DialogBody>
+                    <div className="grid gap-5">
+                        <div className="border rounded-md border-blue-gray-200 p-4 text-center space-y-1">
+                            <div className="text-left px-2">
+                                Name: <span className="font-semibold">{paymentInfo?.name}</span>
+                            </div>
+                            <div className="text-left px-2">
+                                Email: <span className="font-semibold">{paymentInfo?.email}</span>
+                            </div>
+                            <div className="text-left px-2">
+                                Payment Month: <span className="font-semibold">{paymentInfo?.month}, {paymentInfo?.year}</span>
+                            </div>
+                            <div className="text-left px-2">
+                                Salary Amount: <span className="text-green-600 bg-green-100/50 rounded-md px-2 py-1">{paymentInfo?.salary}$</span>
+                            </div>
+                        </div>
+                        {/* checkout form */}
+                        <Elements stripe={stripePromise}>
+                            <CheckoutForm paymentInfo={paymentInfo} refetch={refetch} handleOpen={handleOpen}>
+                            </CheckoutForm>
+                        </Elements>
+
+                        <div className="grid mt-2">
+                            <Button variant="outlined" color="red" onClick={handleOpen} className="min-w-[100px]" > <span>Cancel</span> </Button>
+                        </div>
+                    </div>
+                </DialogBody>
+            </Dialog>
         </>
     );
 }

@@ -171,7 +171,6 @@ export default function AllEmployee() {
                 Swal.fire({
                     icon: "success",
                     title: "Success",
-                    title: "Success",
                     text: "Salary increment successfully",
                 });
                 refetch();
