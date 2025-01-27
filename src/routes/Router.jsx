@@ -18,6 +18,7 @@ import EmployeeDetails from "../pages/EmployeeDetails";
 import PaymentRequest from "../components/Dashboard/PaymentRequest";
 import AllEmployee from "../components/Dashboard/AllEmployee";
 import AllEmployeeCard from "../components/Dashboard/AllEmployee";
+import Inbox from "../pages/Inbox";
 
 const Router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const Router = createBrowserRouter([
             {
                 path: "/",
                 element: <PublicHome></PublicHome>
+            },
+            {
+                path: '/inbox',
+                element: <ProtectedRoute><AdminRoute><Inbox></Inbox></AdminRoute></ProtectedRoute>
             },
             {
                 path: "/contact",

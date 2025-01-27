@@ -166,6 +166,18 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
 
       </Typography>
+      {userInfo.role === 'admin' &&
+        <Typography
+          as="div"
+          href="#"
+          variant="small"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/inbox'}>Inbox</NavLink></ListItem>
+
+        </Typography>
+      }
       <Typography
         as="div"
         href="#"
