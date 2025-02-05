@@ -98,7 +98,7 @@ cd staff-sync
 npm install
 ```
 
-3️⃣ **Set Up Firebase**  
+3️⃣ **Set Up environment file**  
 Here’s the `.env` configuration formatted in Markdown:
 
 # Environment Variables
@@ -119,8 +119,6 @@ VITE_stripe_key=your_stripe_key
 > **Note:** Replace `your_firebase_apiKey`, `your_imageUploadKey`, etc., with your actual keys.
 
 Make sure to add `.env` to your `.gitignore` file to keep your credentials secure.
-
-Let me know if you need any modifications! 🚀
 
 4️⃣ **Run the Application**  
 ```sh
@@ -145,17 +143,4 @@ npm run dev
 ---
 
 💡 *Contributions & feedback are welcome!* 🚀  
-```
-
-### 📌 What’s Included?
-✅ Concise project overview  
-✅ Screenshot placeholder  
-✅ Technologies used  
-✅ Core features  
-✅ Dependencies list  
-✅ Step-by-step setup guide  
-✅ Live demo link  
-✅ Admin credentials  
-✅ Useful resources  
-
-This README file is **structured, professional, and informative**—perfect for GitHub! 🚀 Let me know if you need any modifications. 😊
+Let me know if you need any modifications! 🚀
