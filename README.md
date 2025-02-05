@@ -1,18 +1,10 @@
-Here’s your complete **README.md** file with all the necessary details:  
-
-```md
 # Staff Sync
 
 A web-based **Employee Management System** that streamlines HR processes, including **employee records management, payroll processing, and performance evaluation**. This platform enhances productivity, facilitates efficient communication, and ensures **secure record-keeping**.
 
 ## 🌐 Live Demo  
 🔗 [Staff Sync](https://staff-sync-9fbf6.web.app/)  
-
----
-
-## 📸 Screenshot  
-*(Add a clean screenshot of the project UI here)*  
-
+ 
 ---
 
 ## 🚀 Technologies Used  
@@ -107,14 +99,28 @@ npm install
 ```
 
 3️⃣ **Set Up Firebase**  
-- Create a **Firebase Project**  
-- Add **Authentication & Firestore**  
-- Get your Firebase config and create a `.env` file  
+Here’s the `.env` configuration formatted in Markdown:
+
+# Environment Variables
+
+Create a `.env` file in the root directory and add the following variables:
+
 ```env
-REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+VITE_apiKey=your_firebase_apiKey
+VITE_authDomain=your_firebase_authDomain
+VITE_projectId=your_firebase_projectId
+VITE_storageBucket=your_firebase_storageBucket
+VITE_messagingSenderId=your_firebase_messagingSenderId
+VITE_appId=your_firebase_appId
+VITE_imageUploadKey=your_imageUploadKey
+VITE_baseUrl=your_server_baseUrl
+VITE_stripe_key=your_stripe_key
 ```
+> **Note:** Replace `your_firebase_apiKey`, `your_imageUploadKey`, etc., with your actual keys.
+
+Make sure to add `.env` to your `.gitignore` file to keep your credentials secure.
+
+Let me know if you need any modifications! 🚀
 
 4️⃣ **Run the Application**  
 ```sh
