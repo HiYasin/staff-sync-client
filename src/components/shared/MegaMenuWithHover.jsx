@@ -26,7 +26,7 @@ import ThemeToggleButton from "./ThemeToggleButton";
 
 
 function NavList() {
-  const { userInfo } = useAuth();
+  const { user, userInfo } = useAuth();
   let dashboard = '';
   if (userInfo.role === 'employee') {
     dashboard = '/dashboard/work-sheet';
@@ -56,16 +56,32 @@ function NavList() {
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'/all-service'}>All Services</NavLink></ListItem>
       </Typography>
-      <Typography
-        as="div"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
+      {
+        user &&
+        <Typography
+          as="div"
+          href="#"
+          variant="small"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
 
-      </Typography>
+        </Typography>
+      }
+      {
+        user &&
+        <Typography
+          as="div"
+          href="#"
+          variant="small"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'profile'}>Profile</NavLink></ListItem>
+
+        </Typography>
+      }
       {userInfo.role === 'admin' &&
         <Typography
           as="div"

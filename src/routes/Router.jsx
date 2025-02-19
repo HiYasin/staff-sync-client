@@ -21,6 +21,7 @@ import AllEmployeeCard from "../components/Dashboard/AllEmployee";
 // import AllService from "../components/Dashboard/AllService";
 import Inbox from "../pages/Inbox";
 import AllService from "../pages/AllService";
+import Profile from "../pages/Profile";
 
 const Router = createBrowserRouter([
     {
@@ -51,6 +52,10 @@ const Router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <SignUp></SignUp>
+            },
+            {
+                path: "/profile",
+                element: <ProtectedRoute><Profile></Profile></ProtectedRoute>
             },
             {
                 path: "/dashboard",
