@@ -41,12 +41,12 @@ const Services = () => {
             <div className='grid md:grid-cols-2 lg:grid-cols-3 justify-between gap-10'>
                 {
                     services.map((service, index) =>
-                        <div key={index} className='grid justify-center text-center border-2 rounded-xl p-10 hover:border-gray-800 transition-all duration-500 cursor-pointer group'>
+                        <div key={index} className='grid justify-center text-center border-2 rounded-xl p-10 hover:border-gray-800 dark:border-gray-800 dark:hover:border-white transition-all duration-500 cursor-pointer group'>
                             <div className='w-16 h-16 mx-auto rounded-full overflow-hidden bg-gray-500 group-hover:bg-gray-900 p-2 transition-all duration-500'>
                                 {service?.icon}
                             </div>
-                            <h1 className='text-gray-900 text-2xl font-bold'>{service.title}</h1>
-                            <p className='text-gray-700 '>{service.description}</p>
+                            <h1 className='text-gray-900 text-2xl font-bold dark:text-white'>{service.title}</h1>
+                            <p className='text-gray-700'>{service.description}</p>
                         </div>
                     )
                 }

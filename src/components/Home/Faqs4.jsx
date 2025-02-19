@@ -20,7 +20,7 @@ export function Faqs4() {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="mb-4 text-4xl !leading-snug lg:text-[40px]"
+            className="mb-4 text-4xl !leading-snug lg:text-[40px] dark:text-white"
           >
             Frequently asked questions
           </Typography>
@@ -35,9 +35,9 @@ export function Faqs4() {
         <div className="max-w-3xl mx-auto grid gap-10">
           {faqs.map(({ title, desc }) => (
             <div key={title}>
-            <Typography color="blue-gray" className="pb-6 text-[20px] font-bold">
-            {title}
-          </Typography>
+              <Typography color="blue-gray" className="pb-6 text-[20px] font-bold dark:text-white">
+                {title}
+              </Typography>
               <div className="border-t border-gray-200 pt-4">
                 <Typography className="font-normal !text-gray-500">
                   {desc}
