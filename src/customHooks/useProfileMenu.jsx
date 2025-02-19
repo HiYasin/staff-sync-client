@@ -21,7 +21,7 @@ const useProfileMenu = () => {
         {
           label: "My Profile",
           icon: UserCircleIcon,
-          link: '/',
+          link: '/profile',
         },
         {
           label: "Dashboard",
