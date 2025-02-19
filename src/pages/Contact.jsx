@@ -80,7 +80,7 @@ export function Contact() {
                                 />
                                 <p className="text-red-500">{errors.message?.message}</p>
                             </div>
-                            <Button className="w-full" color="gray" type="submit">
+                            <Button className="w-full dark:bg-white dark:text-black" color="gray" type="submit">
                                 Send message
                             </Button>
                         </form>

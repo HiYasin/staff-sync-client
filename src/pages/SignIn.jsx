@@ -56,7 +56,7 @@ export default function SignIn() {
         <ContainerX>
             <div className="w-full flex flex-col items-center">
                 <Card color="transparent" shadow={false} className="mx-auto">
-                    <Typography variant="h4" color="blue-gray">
+                    <Typography variant="h4" color="blue-gray" className="dark:text-white">
                         Sign In
                     </Typography>
                     <Typography color="gray" className="mt-1 font-normal">
@@ -85,11 +85,11 @@ export default function SignIn() {
                                 placeholder="one letter, one special character, 7 characters long"
                             />
                             <p className="text-red-500">{errors.password?.message}</p>
-                            <Button className="" variant="gradient" type="submit" fullWidth>Sign In</Button>
+                            <Button className="dark:bg-white dark:text-black" type="submit" fullWidth>Sign In</Button>
                         </div>
                         <Typography color="gray" className="mt-4 text-center font-normal">
                             Don't have an account?{" "}
-                            <Link to={'/signup'} state={{ from: redirectTo }} className="font-medium mt-4 text-gray-900 underline">
+                            <Link to={'/signup'} state={{ from: redirectTo }} className="font-medium mt-4 text-gray-900 underline dark:text-white">
                                 Sign Up
                             </Link>
                         </Typography>
@@ -99,7 +99,7 @@ export default function SignIn() {
                             <div className="w-full border-t border-gray-300"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="bg-white px-2 text-gray-500">Or</span>
+                            <span className="bg-white dark:bg-black px-2 text-gray-500">Or</span>
                         </div>
                     </div>
                     <div className="mb-8">

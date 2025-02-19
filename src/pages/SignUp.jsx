@@ -97,7 +97,7 @@ export default function SignUp() {
         <ContainerX>
             <div className="w-full flex flex-col items-center">
                 <Card color="transparent" shadow={false} className="mx-auto">
-                    <Typography variant="h4" color="blue-gray">
+                    <Typography variant="h4" color="blue-gray" className="dark:text-white">
                         Sign Up
                     </Typography>
                     <Typography color="gray" className="mt-1 font-normal">
@@ -152,7 +152,7 @@ export default function SignUp() {
                                             message: "Bank account must be less than 99 characters"
                                         }
                                     })}
-                                    className=" " label="Bank Account" type="text" size="lg" placeholder="e.g. 123465"
+                                    className="" label="Bank Account" type="text" size="lg" placeholder="e.g. 123465"
                                 />
                                 <p className="text-red-500">{errors.bank_account?.message}</p>
                             </div>
@@ -197,33 +197,13 @@ export default function SignUp() {
                             <div className="border rounded-md border-blue-gray-200 focus:border-gray-900 text-blue-gray-700 flex items-center overflow-hidden max-w-96">
                                 <input {...register("image")} type="file" className="mx-2 cursor-pointer file:rounded-md file:text-sm file:px-4 file:py-1 file:border-0 file:outline-1" />
                             </div>
-                            {/* <div className="md:col-span-2">
-                                <label htmlFor="cover-photo" className="block">
-                                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                        <div className="text-center">
-                                            <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
-                                            <div className="mt-4 flex text-sm/6 text-gray-600">
-                                                <label
-                                                    className="relative cursor-pointer rounded-md bg-white font-semibold "
-                                                >
-                                                    <span className="bg-gray-200 text-gray-900 p-2 rounded-full border">Upload a file</span>
-                                                    <input {...register("image")} type="file" className="sr-only" />
-                                                </label>
-                                                <p className="pl-2">or drag and drop</p>
-                                            </div>
-                                            <p className="text-xs/5 pt-2 text-gray-600">PNG, JPG, GIF less than 10MB</p>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div> */}
-
                         </div>
                         <div className="max-w-sm mx-auto col-span-2">
-                            <Button className="mt-4" variant="gradient" type="submit" fullWidth>Sign Up</Button>
+                            <Button className="mt-4 dark:bg-white dark:text-black" type="submit" fullWidth>Sign Up</Button>
                         </div>
                         <Typography color="gray" className="mt-4 text-center font-normal">
                             Already have an account?{" "}
-                            <Link to={'/signin'} state={{ from: redirectTo }} className="font-medium text-gray-900 underline">
+                            <Link to={'/signin'} state={{ from: redirectTo }} className="font-medium text-gray-900 underline dark:text-white">
                                 Sign In
                             </Link>
                         </Typography>
@@ -233,7 +213,7 @@ export default function SignUp() {
                             <div className="w-full border-t border-gray-300"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="bg-white px-2 text-gray-500">Or</span>
+                            <span className="bg-white dark:bg-black px-2 text-gray-500">Or</span>
                         </div>
                     </div>
                     <div className="mb-8">
