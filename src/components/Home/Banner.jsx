@@ -1,5 +1,6 @@
 
 
+import { Button } from '@material-tailwind/react';
 import banner from '../../assets/banner.png'
 const Banner = () => {
     return (
@@ -11,6 +12,9 @@ const Banner = () => {
                 <h2 className='text-md md:text-lg lg:text-xl text-gray-900 text-balance text-center md:text-left'>
                     Empowering businesses with cutting-edge web development, innovative design, and AI-driven technologies to shape a smarter future
                 </h2>
+                <div className='flex justify-center md:justify-start'>
+                    <Button onClick={() => navigate('/signin')} className="dark:bg-red-300">Get Start</Button>
+                </div>
             </div>
             <div className='border-black border-2 p-4 rounded-full'>
                 <div className='rounded-full overflow-hidden'>

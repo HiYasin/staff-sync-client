@@ -10,10 +10,10 @@ const Home = () => {
             <header className='fixed z-50 left-0 top-0 right-0'>
                 <MegaMenuWithHover></MegaMenuWithHover>
             </header>
-            <main className='px-4 mt-24'>
+            <main className='px-4 pt-24 dark:bg-black dark:text-white'>
                 <Outlet></Outlet>
             </main>
-            <footer className='px-2'>
+            <footer className='px-2 dark:bg-black dark:text-white'>
                 <FooterWithSocialLinks></FooterWithSocialLinks>
             </footer>
             <ScrollRestoration />

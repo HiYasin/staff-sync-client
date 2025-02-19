@@ -19,10 +19,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import '../shared/MegaMenuWithHover.css'
 import useAuth from "../../customHooks/useAuth";
 import { UserCircle2Icon } from "lucide-react";
 import useProfileMenu from "../../customHooks/useProfileMenu";
+import ThemeToggleButton from "./ThemeToggleButton";
 
 
 function NavList() {
@@ -45,7 +45,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/'}>Home</NavLink></ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'/'}>Home</NavLink></ListItem>
       </Typography>
       <Typography
         as="div"
@@ -54,7 +54,16 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'/all-service'}>All Services</NavLink></ListItem>
+      </Typography>
+      <Typography
+        as="div"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={dashboard}>Dashboard</NavLink></ListItem>
 
       </Typography>
       {userInfo.role === 'admin' &&
@@ -65,7 +74,7 @@ function NavList() {
           color="blue-gray"
           className="font-medium"
         >
-          <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/inbox'}>Inbox</NavLink></ListItem>
+          <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'/inbox'}>Inbox</NavLink></ListItem>
 
         </Typography>
       }
@@ -76,7 +85,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/contact'}>Contact</NavLink></ListItem>
+        <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white"><NavLink to={'/contact'}>Contact</NavLink></ListItem>
 
       </Typography>
     </List>
@@ -175,7 +184,7 @@ export function MegaMenuWithHover() {
     );
   }, []);
   return (
-    <div className="block shadow-md backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 border border-white/80 bg-white text-white  px-4 py-2">
+    <div className="block shadow-md dark:shadow-gray-800 backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 bg-white text-white dark:bg-black dark:text-white  px-4 py-2">
       <div className="flex items-center justify-between text-blue-gray-900 mx-auto max-w-screen-xl w-full">
         <div className="flex">
           <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
@@ -185,16 +194,17 @@ export function MegaMenuWithHover() {
               <Bars3Icon className="h-6 w-6" strokeWidth={2} />
             )}
           </IconButton>
-          <Typography onClick={() => { navigate('/') }} variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2" >
+          <Typography onClick={() => { navigate('/') }} variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2 dark:text-white" >
             STAFF SYNC
           </Typography>
         </div>
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div>
+        <div className="flex items-center gap-2">
+          <ThemeToggleButton />
           {
-            user ? <ProfileMenu /> : <Button onClick={() => navigate('/signin')}>Get Start</Button>
+            user ? <ProfileMenu /> : <Button onClick={() => navigate('/signin')} className="dark:bg-white dark:text-black">Get Start</Button>
           }
         </div>
       </div>

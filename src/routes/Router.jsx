@@ -18,7 +18,9 @@ import EmployeeDetails from "../pages/EmployeeDetails";
 import PaymentRequest from "../components/Dashboard/PaymentRequest";
 import AllEmployee from "../components/Dashboard/AllEmployee";
 import AllEmployeeCard from "../components/Dashboard/AllEmployee";
+// import AllService from "../components/Dashboard/AllService";
 import Inbox from "../pages/Inbox";
+import AllService from "../pages/AllService";
 
 const Router = createBrowserRouter([
     {
@@ -29,6 +31,10 @@ const Router = createBrowserRouter([
             {
                 path: "/",
                 element: <PublicHome></PublicHome>
+            },
+            {
+                path: "/all-service",
+                element: <AllService></AllService>
             },
             {
                 path: '/inbox',

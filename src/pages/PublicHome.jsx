@@ -7,7 +7,7 @@ import Faqs4 from '../components/Home/Faqs4';
 import Testimonial from '../components/Home/Testimonial';
 const PublicHome = () => {
     return (
-        <div className='my-10'>
+        <div className='py-10'>
             <ContainerX>
                 <Banner></Banner>
                 <Services></Services>
