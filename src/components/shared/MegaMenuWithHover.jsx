@@ -18,120 +18,12 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Bars4Icon,
-  GlobeAmericasIcon,
-  PhoneIcon,
-  SquaresPlusIcon,
-  SunIcon,
-  TagIcon,
-  UserGroupIcon,
-  UserCircleIcon,
-  PowerIcon,
-  LifebuoyIcon,
-  InboxArrowDownIcon,
-  Cog6ToothIcon,
-
-} from "@heroicons/react/24/solid";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import '../shared/MegaMenuWithHover.css'
 import useAuth from "../../customHooks/useAuth";
 import { UserCircle2Icon } from "lucide-react";
-import useAxios from "../../customHooks/useAxios";
 import useProfileMenu from "../../customHooks/useProfileMenu";
-// const [axiosSecure] = useAxios();
-const navListMenuItems = [
-  {
-    title: "Products",
-    icon: SquaresPlusIcon,
-    link: '/'
-  },
-  {
-    title: "About Us",
-    icon: UserGroupIcon,
-    link: '/'
-  },
-  {
-    title: "Services",
-    icon: SunIcon,
-    link: '/'
-  },
-  {
-    title: "Contact",
-    icon: PhoneIcon,
-    link: '/contact'
-  }
-];
 
-function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const renderItems = navListMenuItems.map(
-    ({ icon, title, link }, key) => (
-      <MenuItem key={key} className="flex items-center gap-3 rounded-lg p-0">
-        <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-          {" "}
-          {React.createElement(icon, {
-            strokeWidth: 2,
-            className: "h-6 text-gray-900 w-6",
-          })}
-        </div>
-        <div>
-          <Typography
-            variant="h6"
-            color="blue-gray"
-            className="flex items-center text-sm font-bold"
-          >
-            <Link to={link}>{title}</Link>
-          </Typography>
-        </div>
-      </MenuItem>
-
-    ),
-  );
-
-  return (
-    <React.Fragment>
-      <Menu
-        open={isMenuOpen}
-        handler={setIsMenuOpen}
-        offset={{ mainAxis: 20 }}
-        placement="bottom"
-        allowHover={true}
-      >
-        <MenuHandler>
-          <Typography as="div" variant="small" className="font-medium">
-            <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
-              selected={isMenuOpen || isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen((cur) => !cur)}
-            >
-              Resources
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
-                  }`}
-              />
-              <ChevronDownIcon
-                strokeWidth={2.5}
-                className={`block h-3 w-3 transition-transform lg:hidden ${isMobileMenuOpen ? "rotate-180" : ""
-                  }`}
-              />
-            </ListItem>
-          </Typography>
-        </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">
-            {renderItems}
-          </ul>
-        </MenuList>
-      </Menu>
-      <div className="block lg:hidden">
-        <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
-      </div>
-    </React.Fragment>
-  );
-}
 
 function NavList() {
   const { userInfo } = useAuth();
@@ -155,7 +47,6 @@ function NavList() {
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4"><NavLink to={'/'}>Home</NavLink></ListItem>
       </Typography>
-      <NavListMenu />
       <Typography
         as="div"
         href="#"
@@ -194,8 +85,7 @@ function NavList() {
 
 
 function ProfileMenu() {
-  const [axiosSecure] = useAxios();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, userInfo, logOut } = useAuth();
   const profileMenuItems = useProfileMenu();
 
@@ -278,33 +168,24 @@ export function MegaMenuWithHover() {
 
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
-      <div className="flex items-center justify-between text-blue-gray-900">
+    <div className="block shadow-md backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 border border-white/80 bg-white text-white  px-4 py-2">
+      <div className="flex items-center justify-between text-blue-gray-900 mx-auto max-w-screen-xl w-full">
         <div className="flex">
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            className="lg:hidden"
-            onClick={() => setOpenNav(!openNav)}
-          >
+          <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
             {openNav ? (
               <XMarkIcon className="h-6 w-6" strokeWidth={2} />
             ) : (
               <Bars3Icon className="h-6 w-6" strokeWidth={2} />
             )}
           </IconButton>
-          <Typography
-            onClick={() => { navigate('/') }}
-            variant="h6"
-            className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-          >
+          <Typography onClick={() => { navigate('/') }} variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2" >
             STAFF SYNC
           </Typography>
         </div>
@@ -320,6 +201,6 @@ export function MegaMenuWithHover() {
       <Collapse open={openNav}>
         <NavList />
       </Collapse>
-    </Navbar>
+    </div>
   );
 }

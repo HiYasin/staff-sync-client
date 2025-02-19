@@ -7,7 +7,7 @@ import { ScrollRestoration } from "react-router-dom";
 const Home = () => {
     return (
         <>
-            <header className='px-2 fixed z-50 left-0 top-1 right-0'>
+            <header className='fixed z-50 left-0 top-0 right-0'>
                 <MegaMenuWithHover></MegaMenuWithHover>
             </header>
             <main className='px-4 mt-24'>
