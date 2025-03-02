@@ -51,7 +51,7 @@ export default function WrokSheet() {
                 <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div className="min-w-52 relative">
                         <select {...register("task", { required: "Email is required" })} defaultValue={''}
-                            className="w-full bg-white border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
+                            className="w-full bg-white dark:bg-black border border-blue-gray-200 placeholder:text-slate-400 text-slate-400 text-sm rounded-md pl-3 pr-8 py-2.5 transition duration-300 ease appearance-none cursor-pointer focus:border-gray-900 focus:border-2">
                             <option disabled value=''>Select a task</option>
                             <option value="Sales">Sales</option>
                             <option value="Support">Support</option>
@@ -82,7 +82,7 @@ export default function WrokSheet() {
                     <Button variant="gradient" type="submit" className="min-w-[200px] flex justify-center items-center gap-2"><PlusCircleIcon className="w-5"></PlusCircleIcon> Add Data</Button>
                 </form>
             </div>
-            <div className="my-4">
+            <div className="pb-5 md:pb-10">
                 <EmployeeDataTable></EmployeeDataTable>
             </div>
         </div>

@@ -9,15 +9,12 @@ import {
 } from "@tanstack/react-table";
 import {
     ArrowUpDown,
-    CheckCircle,
     ChevronLeft,
     ChevronRight,
     ChevronsLeft,
     ChevronsRight,
     CircleUserRoundIcon,
-    CircleXIcon,
     Command,
-    DollarSign,
     LandmarkIcon,
     MailCheckIcon,
     User,
@@ -38,14 +35,7 @@ import {
     Input,
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
-import { format, set } from "date-fns";
 import useAxios from "../../customHooks/useAxios";
-import useAuth from "../../customHooks/useAuth";
-import { useForm } from "react-hook-form";
-import RawDayPicker from "../shared/RawDayPicker";
-import Swal from "sweetalert2";
-import useEmployee from "../../customHooks/useEmployee";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 
@@ -178,8 +168,8 @@ export default function PaymentRequest() {
     const [view, setView] = useState(true);
 
     return (
-        <>
-            <Card className="h-full w-full border mt-10">
+        <div className="pb-5 md:pb-10">
+            <Card className="h-full w-full border mt-10 dark:bg-gray-600 dark:text-white">
                 <h1 className="text-center w-full py-5 text-xl font-bold">Payment Request</h1>
                 <div className="w-fit mx-auto">
                     <ButtonGroup variant="outlined">
@@ -242,7 +232,7 @@ export default function PaymentRequest() {
                                 <tr key={row.id} className="hover:bg-gray-50">
                                     {row.getVisibleCells().map((cell, index) => (
                                         index !== 0 ? (
-                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                                 {cell.column.id === "date" ?
                                                     (
                                                         cell.getValue() ?
@@ -255,7 +245,7 @@ export default function PaymentRequest() {
                                                 }
                                             </td>
                                         ) : (
-                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i + 1}</td>
+                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{i + 1}</td>
                                         )
                                     ))}
                                     <td className="space-x-2">
@@ -290,7 +280,7 @@ export default function PaymentRequest() {
                 <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-700 w-full">
                         <div className="flex items-center mb-4 sm:mb-0">
-                            <span className="mr-2">Items per page</span>
+                            <span className="mr-2 dark:text-white">Items per page</span>
                             <select
                                 className="border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 appearance-none"
                                 value={table.getState().pagination.pageSize}
@@ -324,8 +314,8 @@ export default function PaymentRequest() {
                             </button>
 
                             <span className="flex items-center">
-                                <span className="ml-1">{table.getState().pagination.pageIndex + 1}</span>
-                                <span className="ml-1"> of {table.getPageCount()}</span>
+                                <span className="ml-1 dark:text-white">{table.getState().pagination.pageIndex + 1}</span>
+                                <span className="ml-1 dark:text-white"> of {table.getPageCount()}</span>
                             </span>
 
                             <button
@@ -377,6 +367,6 @@ export default function PaymentRequest() {
                     </div>
                 </DialogBody>
             </Dialog>
-        </>
+        </div>
     );
 }

@@ -16,14 +16,12 @@ import {
   ChevronsRight,
   Command,
   ListCheck,
-  Mail,
-  Phone,
   Timer,
   User,
 } from "lucide-react";
 
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   Typography,
@@ -36,7 +34,6 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
 } from "@material-tailwind/react";
 
 import React, { useEffect, useState } from "react";
@@ -221,8 +218,8 @@ export default function EmployeeDataTable() {
   });
 
   return (
-    <>
-      <Card className="h-full w-full border mt-10">
+    <div>
+      <Card className="h-full w-full border mt-10 dark:bg-gray-600 dark:text-white">
         <div className="h-10">
           <h1 className="text-center w-full pt-5 text-xl font-bold">Work Sheet</h1>
         </div>
@@ -287,7 +284,7 @@ export default function EmployeeDataTable() {
                     index !== 0 ?
                       <td
                         key={cell.id}
-                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
                       >
                         {/* access dataa 2nd method  row.getVisibleCells().map(cell => console.log(cell.column.columnDef.cell, cell.getContext())) */}
 
@@ -301,7 +298,7 @@ export default function EmployeeDataTable() {
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         {/* Ekane row.getVisibleCells()[index] = cell */}
                       </td>
-                       : <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i+1}</td>
+                       : <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{i+1}</td>
                   ))}
                   {/* Action */}
                   <td >
@@ -324,7 +321,7 @@ export default function EmployeeDataTable() {
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-700 w-full">
             <div className="flex items-center mb-4 sm:mb-0">
-              <span className="mr-2">Items per page</span>
+              <span className="mr-2 dark:text-white">Items per page</span>
               <select
                 className="border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 appearance-none"
                 value={table.getState().pagination.pageSize}
@@ -358,8 +355,8 @@ export default function EmployeeDataTable() {
               </button>
 
               <span className="flex items-center">
-                <span className="ml-1">{table.getState().pagination.pageIndex + 1}</span>
-                <span className="ml-1"> of {table.getPageCount()}</span>
+                <span className="ml-1 dark:text-white">{table.getState().pagination.pageIndex + 1}</span>
+                <span className="ml-1 dark:text-white"> of {table.getPageCount()}</span>
               </span>
 
               <button
@@ -426,6 +423,6 @@ export default function EmployeeDataTable() {
           </form>
         </DialogBody>
       </Dialog>
-    </>
+    </div>
   );
 }

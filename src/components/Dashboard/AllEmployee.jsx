@@ -263,8 +263,8 @@ export default function AllEmployee() {
     const [view, setView] = useState(true);
 
     return (
-        <>
-            <Card className="h-full w-full border mt-10">
+        <div className="pb-5 md:pb-10">
+            <Card className="h-full w-full border mt-10 dark:bg-gray-600 dark:text-white">
                 <div className="h-fit">
                     <h1 className="text-center w-full py-5 text-xl font-bold">All Employee List</h1>
                     <div className="w-fit mx-auto">
@@ -329,7 +329,7 @@ export default function AllEmployee() {
                                 <tr key={row.id} className="hover:bg-gray-50">
                                     {row.getVisibleCells().map((cell, index) => (
                                         row.original.verified && (index !== 0 ?
-                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                                 {
                                                     cell.column.id === 'role' ?
                                                         (cell.getValue().toUpperCase())
@@ -338,7 +338,7 @@ export default function AllEmployee() {
                                                 }
                                             </td>
                                             :
-                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{i + 1}</td>
+                                            <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{i + 1}</td>
                                         )
                                     ))}
                                     {
@@ -415,7 +415,7 @@ export default function AllEmployee() {
                 <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-700 w-full">
                         <div className="flex items-center mb-4 sm:mb-0">
-                            <span className="mr-2">Items per page</span>
+                            <span className="mr-2 dark:text-white">Items per page</span>
                             <select
                                 className="border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-2 py-1 appearance-none"
                                 value={table.getState().pagination.pageSize}
@@ -449,8 +449,8 @@ export default function AllEmployee() {
                             </button>
 
                             <span className="flex items-center">
-                                <span className="ml-1">{table.getState().pagination.pageIndex + 1}</span>
-                                <span className="ml-1"> of {table.getPageCount()}</span>
+                                <span className="ml-1 dark:text-white">{table.getState().pagination.pageIndex + 1}</span>
+                                <span className="ml-1 dark:text-white"> of {table.getPageCount()}</span>
                             </span>
 
                             <button
@@ -494,6 +494,6 @@ export default function AllEmployee() {
                     </form>
                 </DialogBody>
             </Dialog>
-        </>
+        </div>
     );
 }
